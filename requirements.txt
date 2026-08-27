@@ -1,0 +1,18 @@
+# Core data / extraction
+pandas>=2.2.0
+numpy>=1.26.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+gtfs-realtime-bindings>=1.0.0
+python-dotenv>=1.0.0
+
+# Warehouse (ETL load)
+SQLAlchemy>=2.0.0
+psycopg2-binary>=2.9.9
+
+# Complaint system (FastAPI)
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+
+# Notebooks
+ipykernel>=6.29.0

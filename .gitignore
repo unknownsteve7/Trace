@@ -1,1 +1,30 @@
-\venv
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local data dumps (keep structure; ignore bulky regenerable files if needed)
+# Uncomment if you stop tracking large GTFS dumps:
+# data/raw/*
+# data/processed/*
+# !data/raw/.gitkeep
+# !data/processed/.gitkeep
