@@ -1189,6 +1189,830 @@
             "value": "False"
           }
         ]
+      },
+      {
+        "name": "vw_hourly_trip_distribution",
+        "sourceLineageTag": "[dbo].[vw_hourly_trip_distribution]",
+        "columns": [
+          {
+            "name": "hour_of_day",
+            "dataType": "int64",
+            "sourceColumn": "hour_of_day",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "hour_of_day",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "total_departures",
+            "dataType": "int64",
+            "sourceColumn": "total_departures",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "total_departures",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "unique_trips",
+            "dataType": "int64",
+            "sourceColumn": "unique_trips",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "unique_trips",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "is_peak_hour",
+            "dataType": "int64",
+            "sourceColumn": "is_peak_hour",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "is_peak_hour",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "time_slot",
+            "dataType": "string",
+            "sourceColumn": "time_slot",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "time_slot",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "vw_hourly_trip_distribution",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "vw_route_schedule_summary",
+        "sourceLineageTag": "[dbo].[vw_route_schedule_summary]",
+        "columns": [
+          {
+            "name": "total_trips",
+            "dataType": "int64",
+            "sourceColumn": "total_trips",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "total_trips",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "total_stop_events",
+            "dataType": "int64",
+            "sourceColumn": "total_stop_events",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "total_stop_events",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "peak_hour_stops",
+            "dataType": "int64",
+            "sourceColumn": "peak_hour_stops",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "peak_hour_stops",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "offpeak_stops",
+            "dataType": "int64",
+            "sourceColumn": "offpeak_stops",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "offpeak_stops",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "unique_stops_served",
+            "dataType": "int64",
+            "sourceColumn": "unique_stops_served",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "unique_stops_served",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "route_id",
+            "dataType": "string",
+            "sourceColumn": "route_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "route_id",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "route_name",
+            "dataType": "string",
+            "sourceColumn": "route_name",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "route_name",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "peak_hour_pct",
+            "dataType": "decimal",
+            "sourceColumn": "peak_hour_pct",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "peak_hour_pct",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "vw_route_schedule_summary",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "vw_top_routes",
+        "sourceLineageTag": "[dbo].[vw_top_routes]",
+        "columns": [
+          {
+            "name": "route_id",
+            "dataType": "string",
+            "sourceColumn": "route_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "route_id",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "scheduled_trips",
+            "dataType": "int64",
+            "sourceColumn": "scheduled_trips",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "scheduled_trips",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "total_stop_events",
+            "dataType": "int64",
+            "sourceColumn": "total_stop_events",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "total_stop_events",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "unique_stops",
+            "dataType": "int64",
+            "sourceColumn": "unique_stops",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "unique_stops",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "peak_events",
+            "dataType": "int64",
+            "sourceColumn": "peak_events",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "peak_events",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "route_name",
+            "dataType": "string",
+            "sourceColumn": "route_name",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "route_name",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "vw_top_routes",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "vw_vehicle_activity",
+        "sourceLineageTag": "[dbo].[vw_vehicle_activity]",
+        "columns": [
+          {
+            "name": "route_id",
+            "dataType": "string",
+            "sourceColumn": "route_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "route_id",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "activity_hour",
+            "dataType": "int64",
+            "sourceColumn": "activity_hour",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "activity_hour",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "position_pings",
+            "dataType": "int64",
+            "sourceColumn": "position_pings",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "position_pings",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "unique_vehicles",
+            "dataType": "int64",
+            "sourceColumn": "unique_vehicles",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "unique_vehicles",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "avg_speed_kmh",
+            "dataType": "double",
+            "sourceColumn": "avg_speed_kmh",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "avg_speed_kmh",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "stopped_pings",
+            "dataType": "int64",
+            "sourceColumn": "stopped_pings",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "stopped_pings",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "pct_stopped",
+            "dataType": "double",
+            "sourceColumn": "pct_stopped",
+            "sourceProviderType": "numeric",
+            "sourceLineageTag": "pct_stopped",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "route_name",
+            "dataType": "string",
+            "sourceColumn": "route_name",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "route_name",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "vw_vehicle_activity",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "vw_weather_summary",
+        "sourceLineageTag": "[dbo].[vw_weather_summary]",
+        "columns": [
+          {
+            "name": "weather_label",
+            "dataType": "string",
+            "sourceColumn": "weather_label",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "weather_label",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "total_days",
+            "dataType": "int64",
+            "sourceColumn": "total_days",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "total_days",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "avg_temp_c",
+            "dataType": "double",
+            "sourceColumn": "avg_temp_c",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "avg_temp_c",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "avg_rain_mm",
+            "dataType": "double",
+            "sourceColumn": "avg_rain_mm",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "avg_rain_mm",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "max_rain_mm",
+            "dataType": "double",
+            "sourceColumn": "max_rain_mm",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "max_rain_mm",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "avg_wind_kmh",
+            "dataType": "double",
+            "sourceColumn": "avg_wind_kmh",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "avg_wind_kmh",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "rainy_days",
+            "dataType": "int64",
+            "sourceColumn": "rainy_days",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "rainy_days",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "vw_weather_summary",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "vw_weather_vs_activity",
+        "sourceLineageTag": "[dbo].[vw_weather_vs_activity]",
+        "columns": [
+          {
+            "name": "date",
+            "dataType": "dateTime",
+            "sourceColumn": "date",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "date",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "weather_label",
+            "dataType": "string",
+            "sourceColumn": "weather_label",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "weather_label",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "is_rainy_day",
+            "dataType": "int64",
+            "sourceColumn": "is_rainy_day",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "is_rainy_day",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "precipitation_mm",
+            "dataType": "double",
+            "sourceColumn": "precipitation_mm",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "precipitation_mm",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "temp_avg_c",
+            "dataType": "double",
+            "sourceColumn": "temp_avg_c",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "temp_avg_c",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "total_pings",
+            "dataType": "int64",
+            "sourceColumn": "total_pings",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "total_pings",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "active_buses",
+            "dataType": "int64",
+            "sourceColumn": "active_buses",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "active_buses",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "avg_speed_kmh",
+            "dataType": "double",
+            "sourceColumn": "avg_speed_kmh",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "avg_speed_kmh",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "stopped_pings",
+            "dataType": "int64",
+            "sourceColumn": "stopped_pings",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "stopped_pings",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "pct_stopped",
+            "dataType": "double",
+            "sourceColumn": "pct_stopped",
+            "sourceProviderType": "numeric",
+            "sourceLineageTag": "pct_stopped",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "vw_weather_vs_activity",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
       }
     ],
     "expressions": [
