@@ -1,0 +1,22 @@
+model Model
+	culture: en-US
+	collation: Latin1_General_100_BIN2_UTF8
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DatabaseQuery"]
+
+ref table vw_hourly_trip_distribution
+ref table vw_vehicle_activity
+ref table vw_weather_summary
+ref table vw_weather_vs_activity
+ref table vw_top_routes
+ref table vw_route_schedule_summary
+ref table Dim_Date
+ref table Fact_WeatherDaily
+

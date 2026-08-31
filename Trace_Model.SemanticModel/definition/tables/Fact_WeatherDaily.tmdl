@@ -1,0 +1,116 @@
+table Fact_WeatherDaily
+	lineageTag: d43f4435-b85d-471f-a193-150f8405933c
+	sourceLineageTag: [dbo].[Fact_WeatherDaily]
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 449ffdbe-7dd7-498d-844c-654b9f3eb5cb
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column temp_max_c
+		dataType: double
+		sourceProviderType: float
+		lineageTag: c908f2c2-24ea-4c47-ac7e-306f9561a007
+		sourceLineageTag: temp_max_c
+		summarizeBy: sum
+		sourceColumn: temp_max_c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column temp_min_c
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 21ee5d32-7cd4-4429-9259-1dad523670ee
+		sourceLineageTag: temp_min_c
+		summarizeBy: sum
+		sourceColumn: temp_min_c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column temp_avg_c
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 38cdc1bf-8b35-43e5-831b-01f7acf97af5
+		sourceLineageTag: temp_avg_c
+		summarizeBy: sum
+		sourceColumn: temp_avg_c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column precipitation_mm
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 1496cc26-b2f8-4a20-9b3f-f3576877f477
+		sourceLineageTag: precipitation_mm
+		summarizeBy: sum
+		sourceColumn: precipitation_mm
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column windspeed_max_kmh
+		dataType: double
+		sourceProviderType: float
+		lineageTag: c2ec2157-7322-45cb-a533-c02c3be0ebfb
+		sourceLineageTag: windspeed_max_kmh
+		summarizeBy: sum
+		sourceColumn: windspeed_max_kmh
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column weather_code
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2e2032da-b56e-4b7a-add1-581f498c037b
+		sourceLineageTag: weather_code
+		summarizeBy: sum
+		sourceColumn: weather_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column weather_label
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 042addde-1db0-424a-ac7e-81118dae7d2b
+		sourceLineageTag: weather_label
+		summarizeBy: none
+		sourceColumn: weather_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_rainy_day
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0ff01e26-5ce5-4dc7-a453-fd910a8c6619
+		sourceLineageTag: is_rainy_day
+		summarizeBy: sum
+		sourceColumn: is_rainy_day
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_WeatherDaily = entity
+		mode: directLake
+		source
+			entityName: Fact_WeatherDaily
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

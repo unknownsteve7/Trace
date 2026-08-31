@@ -1,0 +1,67 @@
+table vw_hourly_trip_distribution
+	lineageTag: 2517bb98-844c-4190-bc80-44ec46509157
+	sourceLineageTag: [dbo].[vw_hourly_trip_distribution]
+
+	column hour_of_day
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3b47b94c-8adf-4b7a-97a7-f199de40ea59
+		sourceLineageTag: hour_of_day
+		summarizeBy: sum
+		sourceColumn: hour_of_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_departures
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9389bca8-3d82-4168-b51d-332c6f2250ca
+		sourceLineageTag: total_departures
+		summarizeBy: sum
+		sourceColumn: total_departures
+
+		annotation SummarizationSetBy = Automatic
+
+	column unique_trips
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3e1fab11-fdbf-4fe7-9249-e8d5caba004d
+		sourceLineageTag: unique_trips
+		summarizeBy: sum
+		sourceColumn: unique_trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_peak_hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c710b9e6-43a0-4695-b869-1a6440daf9ab
+		sourceLineageTag: is_peak_hour
+		summarizeBy: sum
+		sourceColumn: is_peak_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_slot
+		dataType: string
+		sourceProviderType: varchar(13)
+		lineageTag: 89cbecf9-00e7-415a-bf5b-f1bdc50b88c2
+		sourceLineageTag: time_slot
+		summarizeBy: none
+		sourceColumn: time_slot
+
+		annotation SummarizationSetBy = Automatic
+
+	partition vw_hourly_trip_distribution = entity
+		mode: directLake
+		source
+			entityName: vw_hourly_trip_distribution
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+
