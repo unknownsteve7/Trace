@@ -1,12 +1,12 @@
 table HourlyTripDistribution
-	lineageTag: d4eaf7c2-a7ad-4dc2-bf4f-ca464dec5734
+	lineageTag: 7eadfe05-2a73-4785-b8b8-681213884dde
 	sourceLineageTag: [dbo].[HourlyTripDistribution]
 
 	column hour_of_day
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: b284443e-624c-46c8-9274-a147a82bbee3
+		lineageTag: feaa4007-fca7-4cc6-919e-444ede197983
 		sourceLineageTag: hour_of_day
 		summarizeBy: sum
 		sourceColumn: hour_of_day
@@ -17,7 +17,7 @@ table HourlyTripDistribution
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 3faa5f8e-8389-46e7-9ddc-3f89c2d7e30f
+		lineageTag: c29971a4-0c46-4899-848a-e778c143a0ca
 		sourceLineageTag: total_departures
 		summarizeBy: sum
 		sourceColumn: total_departures
@@ -28,7 +28,7 @@ table HourlyTripDistribution
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 7f16bafb-23b6-4fac-9ddc-7b0547067d89
+		lineageTag: 2794b799-7630-4cf6-a103-7ff8a9ed5fbb
 		sourceLineageTag: unique_trips
 		summarizeBy: sum
 		sourceColumn: unique_trips
@@ -39,7 +39,7 @@ table HourlyTripDistribution
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 7f30f9b8-e3b6-4e68-9891-27bd0131c9c2
+		lineageTag: b3cd10df-3d40-40d7-a67b-a7f879fa6e9b
 		sourceLineageTag: is_peak_hour
 		summarizeBy: sum
 		sourceColumn: is_peak_hour
@@ -49,7 +49,7 @@ table HourlyTripDistribution
 	column time_slot
 		dataType: string
 		sourceProviderType: varchar(13)
-		lineageTag: c219625f-89ee-4f7d-824d-3eeee18bd2cc
+		lineageTag: b6b77f2c-2172-4bae-92f4-2c9723b1bbfd
 		sourceLineageTag: time_slot
 		summarizeBy: none
 		sourceColumn: time_slot

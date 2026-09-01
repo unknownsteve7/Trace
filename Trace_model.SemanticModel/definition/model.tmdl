@@ -11,5 +11,19 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_QueryOrder = ["DatabaseQuery"]
 
+annotation PBI_ProTooling = ["WebModelingEdit","DaxQueryView_Desktop"]
+
+ref table Fact_WeatherDaily
+ref table VehicleActivity_Gold
+ref table TopRoutes_Gold
+ref table WeatherSummary_Gold
+ref table RouteScheduleSummary_Gold
+ref table WeatherVsActivity_Gold
 ref table HourlyTripDistribution
+ref table Dim_Route
+ref table Dim_Stop
+ref table Dim_Trip
+ref table Fact_VehiclePositions
+ref table Fact_FuelPrices
+ref table Dim_Date
 
