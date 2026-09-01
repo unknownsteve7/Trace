@@ -177,22 +177,6 @@ trace/
 
 ---
 
-## Setup
-
-### Prerequisites
-- Microsoft Fabric workspace (trial or licensed)
-- Delhi OTD API key — register at [otd.delhi.gov.in](https://otd.delhi.gov.in/)
-- Python 3.11+ (for local notebooks)
-
-### Local environment
-
-```bash
-git clone https://github.com/unknownsteve7/Trace.git
-cd Trace
-pip install -r requirements.txt
-cp .env.example .env
-# Add your OTD API key and Fabric workspace details
-```
 
 ### Fabric deployment
 
