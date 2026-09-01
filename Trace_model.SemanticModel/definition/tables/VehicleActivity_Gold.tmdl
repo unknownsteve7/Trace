@@ -1,0 +1,101 @@
+table VehicleActivity_Gold
+	lineageTag: 04a3f7f6-b628-45ed-ac65-ef1f25fbacd4
+	sourceLineageTag: [dbo].[VehicleActivity_Gold]
+
+	column route_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 25a9d8b2-5766-47ff-aa7f-d6e2c1f5e912
+		sourceLineageTag: route_id
+		summarizeBy: none
+		sourceColumn: route_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_name
+		dataType: string
+		sourceProviderType: varchar(255)
+		lineageTag: 172c02d5-06c2-415d-8647-15acf4d0bc09
+		sourceLineageTag: route_name
+		summarizeBy: none
+		sourceColumn: route_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column activity_hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e0aca4bf-77f9-4231-a73e-ce6d94f5455a
+		sourceLineageTag: activity_hour
+		summarizeBy: sum
+		sourceColumn: activity_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column position_pings
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2c90df13-1a0b-4e19-b22e-c9dbe01c4b8c
+		sourceLineageTag: position_pings
+		summarizeBy: sum
+		sourceColumn: position_pings
+
+		annotation SummarizationSetBy = Automatic
+
+	column unique_vehicles
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: bdf1d0ce-1e8f-4dd2-80b9-394b9ea877df
+		sourceLineageTag: unique_vehicles
+		summarizeBy: sum
+		sourceColumn: unique_vehicles
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_speed_kmh
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 1630ac94-7797-4b21-8a48-0d409e4a7f50
+		sourceLineageTag: avg_speed_kmh
+		summarizeBy: sum
+		sourceColumn: avg_speed_kmh
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column stopped_pings
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: be0aea2b-de95-475e-9dcc-5210b8efe33b
+		sourceLineageTag: stopped_pings
+		summarizeBy: sum
+		sourceColumn: stopped_pings
+
+		annotation SummarizationSetBy = Automatic
+
+	column pct_stopped
+		dataType: double
+		sourceProviderType: numeric(26, 12)
+		lineageTag: c3ac7f2a-c4ad-4990-b611-116bf7b1e8d6
+		sourceLineageTag: pct_stopped
+		summarizeBy: sum
+		sourceColumn: pct_stopped
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition VehicleActivity_Gold = entity
+		mode: directLake
+		source
+			entityName: VehicleActivity_Gold
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

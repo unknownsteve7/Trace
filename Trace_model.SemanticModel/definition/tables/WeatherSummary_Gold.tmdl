@@ -1,0 +1,93 @@
+table WeatherSummary_Gold
+	lineageTag: 058e43e9-5640-44c3-9835-648dae87edb3
+	sourceLineageTag: [dbo].[WeatherSummary_Gold]
+
+	column weather_label
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 73248cb1-2c01-4246-9b45-6c94fe02f5e3
+		sourceLineageTag: weather_label
+		summarizeBy: none
+		sourceColumn: weather_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_days
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: db283428-40b7-4127-9ab0-f1753e665b6e
+		sourceLineageTag: total_days
+		summarizeBy: sum
+		sourceColumn: total_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_temp_c
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 10876c81-5bf6-4fff-b005-6aa695654fed
+		sourceLineageTag: avg_temp_c
+		summarizeBy: sum
+		sourceColumn: avg_temp_c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_rain_mm
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 2cd98bf6-b7f3-4921-8fe3-cbca83cf492b
+		sourceLineageTag: avg_rain_mm
+		summarizeBy: sum
+		sourceColumn: avg_rain_mm
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column max_rain_mm
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 5b90dec3-ac7f-4f83-b179-acb46ee296ca
+		sourceLineageTag: max_rain_mm
+		summarizeBy: sum
+		sourceColumn: max_rain_mm
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_wind_kmh
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 9bb1bfb4-5939-4a89-b260-0a2101122153
+		sourceLineageTag: avg_wind_kmh
+		summarizeBy: sum
+		sourceColumn: avg_wind_kmh
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column rainy_days
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d9ee50b5-8e64-42c4-b923-5162a37d11d7
+		sourceLineageTag: rainy_days
+		summarizeBy: sum
+		sourceColumn: rainy_days
+
+		annotation SummarizationSetBy = Automatic
+
+	partition WeatherSummary_Gold = entity
+		mode: directLake
+		source
+			entityName: WeatherSummary_Gold
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

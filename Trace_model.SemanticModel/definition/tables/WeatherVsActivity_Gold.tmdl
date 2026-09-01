@@ -1,0 +1,126 @@
+table WeatherVsActivity_Gold
+	lineageTag: 3784ff84-2704-4a34-9077-f2f4a5f68bde
+	sourceLineageTag: [dbo].[WeatherVsActivity_Gold]
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 4e434f10-a0f4-48ad-89ae-6ac61f65af00
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column weather_label
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: bd04425f-42ef-4655-86cf-c493bd306183
+		sourceLineageTag: weather_label
+		summarizeBy: none
+		sourceColumn: weather_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_rainy_day
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 4fdf7257-4dc8-41c7-b47d-734454b196cf
+		sourceLineageTag: is_rainy_day
+		summarizeBy: sum
+		sourceColumn: is_rainy_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column precipitation_mm
+		dataType: double
+		sourceProviderType: float
+		lineageTag: f2421c82-946a-4df9-941b-5c1028890aa7
+		sourceLineageTag: precipitation_mm
+		summarizeBy: sum
+		sourceColumn: precipitation_mm
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column temp_avg_c
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 9a1292f7-2039-4c7d-9ba1-e9702832ec1c
+		sourceLineageTag: temp_avg_c
+		summarizeBy: sum
+		sourceColumn: temp_avg_c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_pings
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 70d26e29-8c61-4f4e-b016-1938ad5795f0
+		sourceLineageTag: total_pings
+		summarizeBy: sum
+		sourceColumn: total_pings
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_buses
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2e37e50f-20f7-4eac-af22-23f4df919fb5
+		sourceLineageTag: active_buses
+		summarizeBy: sum
+		sourceColumn: active_buses
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_speed_kmh
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 9beda126-8cf7-4fd4-ad7a-39bf93703799
+		sourceLineageTag: avg_speed_kmh
+		summarizeBy: sum
+		sourceColumn: avg_speed_kmh
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column stopped_pings
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: daa8168c-43bb-40d7-9d06-8d8dc4bdd0c0
+		sourceLineageTag: stopped_pings
+		summarizeBy: sum
+		sourceColumn: stopped_pings
+
+		annotation SummarizationSetBy = Automatic
+
+	column pct_stopped
+		dataType: double
+		sourceProviderType: numeric(26, 12)
+		lineageTag: dff3247a-d22f-445a-9771-cf6a91e7f95f
+		sourceLineageTag: pct_stopped
+		summarizeBy: sum
+		sourceColumn: pct_stopped
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition WeatherVsActivity_Gold = entity
+		mode: directLake
+		source
+			entityName: WeatherVsActivity_Gold
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

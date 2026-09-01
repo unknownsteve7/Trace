@@ -1,0 +1,54 @@
+table Dim_Route
+	lineageTag: dc44ea77-bea2-48f8-9203-e78e3a27ad6e
+	sourceLineageTag: [dbo].[Dim_Route]
+
+	column route_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: f610ee7b-9008-46c7-8003-eb54c64e4ad9
+		sourceLineageTag: route_id
+		summarizeBy: none
+		sourceColumn: route_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_short_name
+		dataType: string
+		sourceProviderType: varchar(20)
+		lineageTag: 2e0073f5-49fb-45b8-9a0b-da85cf6b4413
+		sourceLineageTag: route_short_name
+		summarizeBy: none
+		sourceColumn: route_short_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_long_name
+		dataType: string
+		sourceProviderType: varchar(255)
+		lineageTag: 6e82fc13-a153-42f6-97d0-c826679c7165
+		sourceLineageTag: route_long_name
+		summarizeBy: none
+		sourceColumn: route_long_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_type
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 72828e63-46f8-45eb-9636-3f893501f3d9
+		sourceLineageTag: route_type
+		summarizeBy: sum
+		sourceColumn: route_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Route = entity
+		mode: directLake
+		source
+			entityName: Dim_Route
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+
