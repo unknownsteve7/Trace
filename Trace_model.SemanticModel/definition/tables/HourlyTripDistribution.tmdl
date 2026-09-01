@@ -1,12 +1,12 @@
-table vw_hourly_trip_distribution
-	lineageTag: 2517bb98-844c-4190-bc80-44ec46509157
-	sourceLineageTag: [dbo].[vw_hourly_trip_distribution]
+table HourlyTripDistribution
+	lineageTag: d4eaf7c2-a7ad-4dc2-bf4f-ca464dec5734
+	sourceLineageTag: [dbo].[HourlyTripDistribution]
 
 	column hour_of_day
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 3b47b94c-8adf-4b7a-97a7-f199de40ea59
+		lineageTag: b284443e-624c-46c8-9274-a147a82bbee3
 		sourceLineageTag: hour_of_day
 		summarizeBy: sum
 		sourceColumn: hour_of_day
@@ -17,7 +17,7 @@ table vw_hourly_trip_distribution
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 9389bca8-3d82-4168-b51d-332c6f2250ca
+		lineageTag: 3faa5f8e-8389-46e7-9ddc-3f89c2d7e30f
 		sourceLineageTag: total_departures
 		summarizeBy: sum
 		sourceColumn: total_departures
@@ -28,7 +28,7 @@ table vw_hourly_trip_distribution
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 3e1fab11-fdbf-4fe7-9249-e8d5caba004d
+		lineageTag: 7f16bafb-23b6-4fac-9ddc-7b0547067d89
 		sourceLineageTag: unique_trips
 		summarizeBy: sum
 		sourceColumn: unique_trips
@@ -39,7 +39,7 @@ table vw_hourly_trip_distribution
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: c710b9e6-43a0-4695-b869-1a6440daf9ab
+		lineageTag: 7f30f9b8-e3b6-4e68-9891-27bd0131c9c2
 		sourceLineageTag: is_peak_hour
 		summarizeBy: sum
 		sourceColumn: is_peak_hour
@@ -49,17 +49,17 @@ table vw_hourly_trip_distribution
 	column time_slot
 		dataType: string
 		sourceProviderType: varchar(13)
-		lineageTag: 89cbecf9-00e7-415a-bf5b-f1bdc50b88c2
+		lineageTag: c219625f-89ee-4f7d-824d-3eeee18bd2cc
 		sourceLineageTag: time_slot
 		summarizeBy: none
 		sourceColumn: time_slot
 
 		annotation SummarizationSetBy = Automatic
 
-	partition vw_hourly_trip_distribution = entity
+	partition HourlyTripDistribution = entity
 		mode: directLake
 		source
-			entityName: vw_hourly_trip_distribution
+			entityName: HourlyTripDistribution
 			schemaName: dbo
 			expressionSource: DatabaseQuery
 
