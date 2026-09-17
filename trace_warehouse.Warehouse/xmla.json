@@ -996,6 +996,24 @@
                 "value": "Automatic"
               }
             ]
+          },
+          {
+            "name": "derived_speed_kmh",
+            "dataType": "double",
+            "sourceColumn": "derived_speed_kmh",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "derived_speed_kmh",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
           }
         ],
         "partitions": [
