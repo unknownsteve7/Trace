@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pipeline_realtime_vehicle_positions"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "259834a9-23e4-a823-4c9b-eab972dffa3e"
+  }
+}
