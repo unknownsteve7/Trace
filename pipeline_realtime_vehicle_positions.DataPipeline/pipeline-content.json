@@ -1,5 +1,67 @@
 {
   "properties": {
-    "activities": []
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "42d737f2-993f-9fd1-49ce-b64149a59aac",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false,
+          "exponentialRetry": true,
+          "maxRetryIntervalInSeconds": 3600
+        },
+        "name": "pipeline_realtime_vehicle_positions",
+        "dependsOn": []
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "TRUNCATE TABLE dbo.Fact_VehiclePositions;\n\nINSERT INTO dbo.Fact_VehiclePositions\nSELECT * FROM [trace_lakehouse].[dbo].[bronze_vehicle_positions];\n",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "linkedService": {
+          "name": "trace_warehouse",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "8c958562-59b7-901e-4337-a27ad64a4574",
+              "endpoint": "g6a7ev7iqylexogaariipdrjwa-qgob5vgtyedehlwbzi5ffa3zlm.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Script1",
+        "dependsOn": [
+          {
+            "activity": "pipeline_realtime_vehicle_positions",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
   }
 }

@@ -9,5 +9,6 @@ CREATE TABLE [dbo].[Fact_VehiclePositions] (
 	[speed] float NULL, 
 	[timestamp] varchar(40) NULL, 
 	[status] int NULL, 
-	[ingested_at] varchar(40) NULL
+	[ingested_at] varchar(40) NULL, 
+	[derived_speed_kmh] float NULL
 );
