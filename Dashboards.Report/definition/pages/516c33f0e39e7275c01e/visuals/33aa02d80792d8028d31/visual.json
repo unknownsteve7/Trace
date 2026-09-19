@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "33aa02d80792d8028d31",
+  "position": {
+    "x": 1706.7255598881948,
+    "y": 279.86058870216362,
+    "z": 8,
+    "height": 233.21715725180303,
+    "width": 214.13575347665551,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HourlyTripDistribution"
+                    }
+                  },
+                  "Property": "time_slot"
+                }
+              },
+              "queryRef": "HourlyTripDistribution.time_slot",
+              "nativeQueryRef": "time_slot",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Basic'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "13e80622e740b97ed168",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "HourlyTripDistribution"
+              }
+            },
+            "Property": "time_slot"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

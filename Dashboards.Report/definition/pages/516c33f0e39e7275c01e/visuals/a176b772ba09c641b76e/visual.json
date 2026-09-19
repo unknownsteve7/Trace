@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "a176b772ba09c641b76e",
+  "position": {
+    "x": 845.94223403154,
+    "y": 689.05069188032712,
+    "z": 7,
+    "height": 390.108699403016,
+    "width": 850.18254598157284,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TopRoutes_Gold"
+                    }
+                  },
+                  "Property": "route_name"
+                }
+              },
+              "queryRef": "TopRoutes_Gold.route_name",
+              "nativeQueryRef": "Count of route_name",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TopRoutes_Gold"
+                        }
+                      },
+                      "Property": "scheduled_trips"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(TopRoutes_Gold.scheduled_trips)",
+              "nativeQueryRef": "scheduled_trips"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "TopRoutes_Gold"
+                      }
+                    },
+                    "Property": "scheduled_trips"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "bb4a044ea73510a5427e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TopRoutes_Gold"
+              }
+            },
+            "Property": "route_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "925f65d158a72155c09c",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "TopRoutes_Gold"
+                  }
+                },
+                "Property": "scheduled_trips"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

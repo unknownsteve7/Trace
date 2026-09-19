@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "a3ed41438a1a8e40530d",
+  "position": {
+    "x": 10.600779875081956,
+    "y": 402.8296352531143,
+    "z": 4,
+    "height": 409.1901031781635,
+    "width": 839.58176610649093,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HourlyTripDistribution"
+                    }
+                  },
+                  "Property": "time_slot"
+                }
+              },
+              "queryRef": "HourlyTripDistribution.time_slot",
+              "nativeQueryRef": "Count of time_slot",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "HourlyTripDistribution"
+                        }
+                      },
+                      "Property": "total_departures"
+                    }
+                  },
+                  "Function": 2
+                }
+              },
+              "queryRef": "Count(HourlyTripDistribution.total_departures)",
+              "nativeQueryRef": "Count of total_departures1"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "HourlyTripDistribution"
+                      }
+                    },
+                    "Property": "total_departures"
+                  }
+                },
+                "Function": 2
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "985b9b303637b0960e54",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "HourlyTripDistribution"
+              }
+            },
+            "Property": "time_slot"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9b91e4ad0c4830040b43",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "HourlyTripDistribution"
+                  }
+                },
+                "Property": "total_departures"
+              }
+            },
+            "Function": 2
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
