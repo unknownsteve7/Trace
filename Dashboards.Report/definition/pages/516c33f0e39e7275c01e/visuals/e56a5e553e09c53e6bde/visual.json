@@ -1,0 +1,218 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "e56a5e553e09c53e6bde",
+  "position": {
+    "x": 858.6631698816384,
+    "y": 279.86058870216362,
+    "z": 6,
+    "height": 409.1901031781635,
+    "width": 837.46161013147446,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RouteScheduleSummary_Gold"
+                    }
+                  },
+                  "Property": "route_name"
+                }
+              },
+              "queryRef": "RouteScheduleSummary_Gold.route_name",
+              "nativeQueryRef": "route_name"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RouteScheduleSummary_Gold"
+                        }
+                      },
+                      "Property": "total_trips"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(RouteScheduleSummary_Gold.total_trips)",
+              "nativeQueryRef": "Sum of total_trips"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RouteScheduleSummary_Gold"
+                        }
+                      },
+                      "Property": "unique_stops_served"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(RouteScheduleSummary_Gold.unique_stops_served)",
+              "nativeQueryRef": "Sum of unique_stops_served"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RouteScheduleSummary_Gold"
+                        }
+                      },
+                      "Property": "peak_hour_pct"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(RouteScheduleSummary_Gold.peak_hour_pct)",
+              "nativeQueryRef": "Average of peak_hour_pct",
+              "format": "G"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "RouteScheduleSummary_Gold"
+                      }
+                    },
+                    "Property": "unique_stops_served"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnFormatting": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "2L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(RouteScheduleSummary_Gold.peak_hour_pct)"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "42c376cf532b9d434962",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RouteScheduleSummary_Gold"
+              }
+            },
+            "Property": "route_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "073779133b044d45a721",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "RouteScheduleSummary_Gold"
+                  }
+                },
+                "Property": "total_trips"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a05f2af72976d3b7cd9d",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "RouteScheduleSummary_Gold"
+                  }
+                },
+                "Property": "unique_stops_served"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "35c19b4e73743021038a",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "RouteScheduleSummary_Gold"
+                  }
+                },
+                "Property": "peak_hour_pct"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

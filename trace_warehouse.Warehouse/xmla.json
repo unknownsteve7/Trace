@@ -1607,6 +1607,21 @@
             ]
           },
           {
+            "name": "activity_date",
+            "dataType": "dateTime",
+            "sourceColumn": "activity_date",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "activity_date",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
             "name": "position_pings",
             "dataType": "int64",
             "sourceColumn": "position_pings",

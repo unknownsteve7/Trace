@@ -2,18 +2,17 @@
 CREATE   VIEW dbo.vw_vehicle_activity AS
 SELECT
     v.route_id,
-    COALESCE(r.route_short_name, r.route_long_name) AS route_name,
-    CAST(SUBSTRING(v.timestamp, 12, 2) AS INT)      AS activity_hour,
-    COUNT(*)                                         AS position_pings,
-    COUNT(DISTINCT v.vehicle_id)                     AS unique_vehicles,
-    ROUND(AVG(v.speed), 2)                           AS avg_speed_kmh,
-    SUM(CASE WHEN v.speed = 0 THEN 1 ELSE 0 END)     AS stopped_pings,
+    r.route_long_name                                    AS route_name,
+    CAST(SUBSTRING(v.timestamp, 12, 2) AS INT)           AS activity_hour,
+    COUNT(*)                                             AS position_pings,
+    COUNT(DISTINCT v.vehicle_id)                         AS unique_vehicles,
+    ROUND(AVG(v.derived_speed_kmh), 2)                   AS avg_speed_kmh,
+    SUM(CASE WHEN v.derived_speed_kmh < 2 THEN 1 ELSE 0 END) AS stopped_pings,
     ROUND(
-        100.0 * SUM(CASE WHEN v.speed = 0 THEN 1 ELSE 0 END)
+        100.0 * SUM(CASE WHEN v.derived_speed_kmh < 2 THEN 1 ELSE 0 END)
         / NULLIF(COUNT(*), 0), 1
-    )                                                AS pct_stopped
+    )                                                    AS pct_stopped
 FROM dbo.Fact_VehiclePositions v
-LEFT JOIN dbo.Dim_Route        r ON v.route_id = r.route_id
-GROUP BY v.route_id, 
-         COALESCE(r.route_short_name, r.route_long_name),
+LEFT JOIN dbo.Dim_Route r ON v.route_id = r.route_id
+GROUP BY v.route_id, r.route_long_name,
          CAST(SUBSTRING(v.timestamp, 12, 2) AS INT);
