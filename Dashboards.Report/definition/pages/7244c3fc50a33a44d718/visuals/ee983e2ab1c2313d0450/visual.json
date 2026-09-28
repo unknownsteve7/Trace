@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "ee983e2ab1c2313d0450",
+  "position": {
+    "x": 812,
+    "y": 689,
+    "z": 8000,
+    "height": 310,
+    "width": 539,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "listSlicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Route"
+                    }
+                  },
+                  "Property": "route_long_name"
+                }
+              },
+              "queryRef": "Dim_Route.route_long_name",
+              "nativeQueryRef": "route_long_name",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

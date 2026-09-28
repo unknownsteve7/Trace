@@ -4,10 +4,10 @@
   "position": {
     "x": 1706.7255598881948,
     "y": 279.86058870216362,
-    "z": 8,
+    "z": 8000,
     "height": 233.21715725180303,
     "width": 214.13575347665551,
-    "tabOrder": 8
+    "tabOrder": 8000
   },
   "visual": {
     "visualType": "slicer",
@@ -55,23 +55,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "13e80622e740b97ed168",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "HourlyTripDistribution"
-              }
-            },
-            "Property": "time_slot"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

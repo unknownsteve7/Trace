@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "bdee61e2eb1d6d7510db",
+  "position": {
+    "x": 300,
+    "y": 540,
+    "z": 5000,
+    "height": 367.5,
+    "width": 567.5,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RouteScheduleSummary_Gold"
+                        }
+                      },
+                      "Property": "offpeak_stops"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(RouteScheduleSummary_Gold.offpeak_stops)",
+              "nativeQueryRef": "Sum of offpeak_stops"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RouteScheduleSummary_Gold"
+                        }
+                      },
+                      "Property": "peak_hour_stops"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(RouteScheduleSummary_Gold.peak_hour_stops)",
+              "nativeQueryRef": "Sum of peak_hour_stops"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "RouteScheduleSummary_Gold"
+                      }
+                    },
+                    "Property": "offpeak_stops"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

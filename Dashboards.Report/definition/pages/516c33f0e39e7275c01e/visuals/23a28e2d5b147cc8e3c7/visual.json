@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "23a28e2d5b147cc8e3c7",
   "position": {
-    "x": 845.94223403154,
+    "x": 845.90656381894917,
     "y": 0,
-    "z": 3,
-    "height": 279.86058870216362,
-    "width": 860.78332585665476,
-    "tabOrder": 3
+    "z": 3000,
+    "height": 563.34158055595981,
+    "width": 860.21365157910054,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "areaChart",
@@ -81,42 +81,5 @@
       }
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "f23e2409ace5345ea0a4",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "HourlyTripDistribution"
-              }
-            },
-            "Property": "hour_of_day"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "316c08c6c07cc7dc483b",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "HourlyTripDistribution"
-                  }
-                },
-                "Property": "total_departures"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

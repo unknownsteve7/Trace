@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "53d07771e87091ee0a20",
+  "position": {
+    "x": 298.94199247731115,
+    "y": 0,
+    "z": 4000,
+    "height": 455.83353462852409,
+    "width": 987.99268435763827,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "WeatherVsActivity_Gold"
+                    }
+                  },
+                  "Property": "date"
+                }
+              },
+              "queryRef": "WeatherVsActivity_Gold.date",
+              "nativeQueryRef": "date",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "WeatherVsActivity_Gold"
+                        }
+                      },
+                      "Property": "temp_avg_c"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(WeatherVsActivity_Gold.temp_avg_c)",
+              "nativeQueryRef": "Average of temp_avg_c"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "WeatherVsActivity_Gold"
+                  }
+                },
+                "Property": "date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
