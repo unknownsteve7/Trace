@@ -2,6 +2,15 @@ table VehicleActivity_Gold
 	lineageTag: 04a3f7f6-b628-45ed-ac65-ef1f25fbacd4
 	sourceLineageTag: [dbo].[VehicleActivity_Gold]
 
+	measure 'Stoping vs Moving' = Sum(VehicleActivity_Gold[position_pings])-SUM(VehicleActivity_Gold[stopped_pings])
+		lineageTag: ae1632b2-484f-4507-8b58-e378dd176b74
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column route_id
 		dataType: string
 		sourceProviderType: varchar(50)

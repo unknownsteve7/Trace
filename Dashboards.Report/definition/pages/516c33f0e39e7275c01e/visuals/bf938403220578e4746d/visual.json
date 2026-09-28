@@ -4,10 +4,10 @@
   "position": {
     "x": 294.70168052727837,
     "y": 0,
-    "z": 1,
+    "z": 1000,
     "height": 279.86058870216362,
     "width": 279.86058870216362,
-    "tabOrder": 1
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -81,28 +81,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "6e42eaf084d0395ed6c4",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "RouteScheduleSummary_Gold"
-                  }
-                },
-                "Property": "peak_hour_pct"
-              }
-            },
-            "Function": 1
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

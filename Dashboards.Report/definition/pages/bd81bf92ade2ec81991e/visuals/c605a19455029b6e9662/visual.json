@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "c605a19455029b6e9662",
+  "position": {
+    "x": 10,
+    "y": 870,
+    "z": 3000,
+    "height": 210,
+    "width": 280,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_WeatherDaily"
+                        }
+                      },
+                      "Property": "precipitation_mm"
+                    }
+                  },
+                  "Function": 4
+                }
+              },
+              "queryRef": "Sum(Fact_WeatherDaily.precipitation_mm)",
+              "nativeQueryRef": "Max of precipitation_mm"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Fact_WeatherDaily"
+                      }
+                    },
+                    "Property": "precipitation_mm"
+                  }
+                },
+                "Function": 4
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

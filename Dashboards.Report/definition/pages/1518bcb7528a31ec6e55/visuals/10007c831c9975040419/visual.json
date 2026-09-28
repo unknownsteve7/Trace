@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "10007c831c9975040419",
+  "position": {
+    "x": 920,
+    "y": 0,
+    "z": 5000,
+    "height": 406,
+    "width": 610,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VehicleActivity_Gold"
+                    }
+                  },
+                  "Property": "stopped_pings"
+                }
+              },
+              "queryRef": "VehicleActivity_Gold.stopped_pings",
+              "nativeQueryRef": "stopped_pings",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VehicleActivity_Gold"
+                    }
+                  },
+                  "Property": "Stoping vs Moving"
+                }
+              },
+              "queryRef": "VehicleActivity_Gold.Stoping vs Moving",
+              "nativeQueryRef": "Stoping vs Moving"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "VehicleActivity_Gold"
+                  }
+                },
+                "Property": "Stoping vs Moving"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
