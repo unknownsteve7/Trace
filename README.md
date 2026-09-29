@@ -140,25 +140,26 @@ Dim_Date  ──┤    Fact_VehiclePositions
 
 ## Project Structure
 
-```
-trace/
-├── Notebook 1.Notebook/          # Extract: GTFS static → Bronze Delta tables
-├── Notebook 2.Notebook/          # Extract: Realtime vehicle positions → Bronze
-├── Notebook 3.Notebook/          # Extract: Open-Meteo weather → Bronze
-├── Notebook 4.Notebook/          # Seed: Fuel prices → Bronze
-├── Notebook 5.Notebook/          # Transform: Dim_Route/Stop/Trip/Date → Silver
-├── Notebook 6.Notebook/          # Transform: Fact_TripSchedule → Silver
-├── Notebook 7.Notebook/          # Transform: Fact_WeatherDaily → Silver
-├── trace_lakehouse.Lakehouse/    # Lakehouse definition (synced from Fabric)
-├── trace_warehouse.Warehouse/    # Warehouse DDL — all table definitions
-│   └── dbo/Tables/               # Dim_*.sql · Fact_*.sql
-├── Trace_Model.SemanticModel/    # Power BI semantic model definition
-│   └── definition/tables/        # One .tmdl per table/view
-├── notebook/
-│   └── scraping.ipynb            # Local POC — API connectivity tests
-├── src/                          # Placeholder for local ETL scripts
-├── requirements.txt              # Python dependencies
-├── .env.example                  # Environment variable template
+```text
+TRACE/
+├── fabric/                          # All Microsoft Fabric workspace items
+│   ├── NB01 - Load GTFS Bronze.Notebook/
+│   ├── NB02 - Realtime Positions Bronze.Notebook/
+│   ├── NB03 - Weather Data Bronze.Notebook/
+│   ├── NB04 - Fuel Prices Bronze.Notebook/
+│   ├── NB05 - Dimensions Silver.Notebook/
+│   ├── NB06 - TripSchedule Fact Silver.Notebook/
+│   ├── NB07 - Gold Views & Warehouse Load.Notebook/
+│   ├── NB8_Ingest_MCTC_Observations.Notebook/
+│   ├── Dashboards.Report/           # Power BI Dashboards
+│   ├── Pipeline_Realtime_Ingestion.DataPipeline/
+│   ├── trace_lakehouse.Lakehouse/   # Bronze & Silver Delta tables
+│   ├── trace_warehouse.Warehouse/   # Gold SQL views and Star Schema
+│   └── Trace_model.SemanticModel/   # DirectQuery model & RLS
+├── mctc/                            # Ground-level observation system (FastAPI)
+├── docs/                            # Architecture and bug trackers
+├── requirements.txt                 # Python dependencies
+├── .env.example                     # Environment variable template
 └── README.md
 ```
 
@@ -181,10 +182,10 @@ trace/
 ### Fabric deployment
 
 1. Connect your Fabric workspace to this Git repository (Azure DevOps or GitHub)
-2. Sync — all notebooks, warehouse, lakehouse, and semantic model will import automatically
-3. Upload GTFS static files to `trace_lakehouse/Files/` (download from Delhi OTD)
-4. Run notebooks in order: **NB1 → NB2 → NB3 → NB4 → NB5 → NB6 → NB7**
-5. Run the Warehouse SQL load script to populate Dim/Fact tables from Silver layer
+2. Set the **Git folder** to `/fabric` in workspace settings.
+3. Sync — all notebooks, warehouse, lakehouse, and semantic model will import automatically
+4. Upload GTFS static files to `trace_lakehouse/Files/` (download from Delhi OTD)
+5. Run notebooks in order: **NB01 → NB02 → NB03 → NB04 → NB05 → NB06 → NB07**
 6. Open `Trace_Model` semantic model → build Power BI reports
 
 ---
@@ -236,5 +237,7 @@ trace/
 ## Author
 
 **Naga Mohan Madicharla**  
+**Sravanthi Kommasani**
+**Ashini Reddy Mukkala**
 B.Tech CSE, RGUKT Ongole  
 [Portfolio](https://nagamohan.me) · [GitHub](https://github.com/unknownsteve7) · [LinkedIn](https://linkedin.com/in/nagamohan765/)
