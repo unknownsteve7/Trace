@@ -1,3 +1,0 @@
-dependencies:
-  - pip:
-      - gtfs-realtime-bindings==2.2.0
