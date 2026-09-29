@@ -236,8 +236,9 @@ TRACE/
 
 ## Author
 
-**Naga Mohan Madicharla**  
-**Sravanthi Kommasani**
-**Ashini Reddy Mukkala**
+**Naga Mohan Madicharla**   
+**Sravanthi Kommasani**   
+**Ashini Reddy Mukkala**   
+**Jaya Sri Vardhan Samgoju**   
 B.Tech CSE, RGUKT Ongole  
 [Portfolio](https://nagamohan.me) · [GitHub](https://github.com/unknownsteve7) · [LinkedIn](https://linkedin.com/in/nagamohan765/)
