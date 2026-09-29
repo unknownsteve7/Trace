@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "NB07 — Gold Views & Warehouse Load",
+    "description": "Creates 6 Gold analytical SQL views (OTP, weather impact, vehicle activity, route performance) and loads them into the Fabric Warehouse"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "67c75217-1dce-9ca2-4063-f9e090c32940"
+  }
+}

@@ -1,0 +1,35 @@
+model Model
+	culture: en-US
+	collation: Latin1_General_100_BIN2_UTF8
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DatabaseQuery"]
+
+annotation PBI_ProTooling = ["WebModelingEdit","DaxQueryView_Desktop"]
+
+ref table Fact_WeatherDaily
+ref table VehicleActivity_Gold
+ref table TopRoutes_Gold
+ref table WeatherSummary_Gold
+ref table RouteScheduleSummary_Gold
+ref table WeatherVsActivity_Gold
+ref table HourlyTripDistribution
+ref table Dim_Route
+ref table Dim_Stop
+ref table Dim_Trip
+ref table Fact_VehiclePositions
+ref table Fact_FuelPrices
+ref table Dim_Date
+
+ref role 'Head of Operations Analytics'
+ref role 'Route Planning Manager'
+ref role 'Depot Manager'
+ref role 'Fleet & Maintenance Manager'
+ref role 'Customer Experience Head'
+

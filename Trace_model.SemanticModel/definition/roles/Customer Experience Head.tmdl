@@ -1,4 +1,0 @@
-role 'Customer Experience Head'
-	modelPermission: read
-
-	annotation PBI_Id = 5e9f3b5894174c379a953de3bd714bc5

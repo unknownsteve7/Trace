@@ -1,0 +1,5 @@
+role 'Route Planning Manager'
+	modelPermission: read
+
+	annotation PBI_Id = 2b9f3b5894174c379a953de3bd714bc2
+
