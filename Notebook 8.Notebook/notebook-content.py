@@ -22,15 +22,6 @@
 
 # CELL ********************
 
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
-
-# CELL ********************
-
 import pandas as pd
 from pyspark.sql.functions import col, to_timestamp, current_timestamp
 
@@ -56,16 +47,7 @@ try:
     table_name = "bronze_mctc_observations"
     df.write.format("delta").mode("overwrite").option("overwriteSchema", "true").saveAsTable(table_name)
     
-    print(f"✅ Data successfully written to {table_name}")
+    print(f"Data successfully written to {table_name}")
 
 except Exception as e:
-    print(f"❌ Error fetching or saving MCTC observations: {str(e)}")
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
-
-# CELL ********************
+    print(f"Error fetching or saving MCTC observations: {str(e)}")
