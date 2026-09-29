@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "31b85cca44873d17a73e",
+  "position": {
+    "x": 10,
+    "y": 580,
+    "z": 2000,
+    "height": 280,
+    "width": 280,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RouteScheduleSummary_Gold"
+                        }
+                      },
+                      "Property": "total_stop_events"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(RouteScheduleSummary_Gold.total_stop_events)",
+              "nativeQueryRef": "Sum of total_stop_events"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "RouteScheduleSummary_Gold"
+                      }
+                    },
+                    "Property": "total_stop_events"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

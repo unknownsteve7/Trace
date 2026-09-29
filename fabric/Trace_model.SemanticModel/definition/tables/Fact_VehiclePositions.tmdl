@@ -1,0 +1,120 @@
+table Fact_VehiclePositions
+	lineageTag: bd3d5235-bca4-4790-9f05-bd5d486ed29d
+	sourceLineageTag: [dbo].[Fact_VehiclePositions]
+
+	column entity_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 3ea91646-81e8-48a3-96a9-1aa5b032990a
+		sourceLineageTag: entity_id
+		summarizeBy: none
+		sourceColumn: entity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column vehicle_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: bc2a5793-b28c-46f8-b2cb-4a43efd7e504
+		sourceLineageTag: vehicle_id
+		summarizeBy: none
+		sourceColumn: vehicle_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column trip_id
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: 743ed08a-dcbc-447c-8619-817a38d959b3
+		sourceLineageTag: trip_id
+		summarizeBy: none
+		sourceColumn: trip_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 8c3f5c49-6c37-4200-934f-2956659ba837
+		sourceLineageTag: route_id
+		summarizeBy: none
+		sourceColumn: route_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		sourceProviderType: float
+		lineageTag: bb0046f9-b3f9-4378-a7f3-65acd634bee5
+		sourceLineageTag: latitude
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 8ba45b68-8388-439d-9b88-3871e0c3e817
+		sourceLineageTag: longitude
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column speed
+		dataType: double
+		sourceProviderType: float
+		lineageTag: d42d12aa-f637-44f7-b2a9-2e9e5bc9a745
+		sourceLineageTag: speed
+		summarizeBy: sum
+		sourceColumn: speed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column timestamp
+		dataType: string
+		sourceProviderType: varchar(40)
+		lineageTag: 0ded541f-9ac6-4d3c-affa-b2f75016b42f
+		sourceLineageTag: timestamp
+		summarizeBy: none
+		sourceColumn: timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 12f9a2ea-4cf3-43a6-bd28-6caa6d048c81
+		sourceLineageTag: status
+		summarizeBy: sum
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column ingested_at
+		dataType: string
+		sourceProviderType: varchar(40)
+		lineageTag: fd07684f-dfd5-41fb-b580-9fec206c5cbb
+		sourceLineageTag: ingested_at
+		summarizeBy: none
+		sourceColumn: ingested_at
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_VehiclePositions = entity
+		mode: directLake
+		source
+			entityName: Fact_VehiclePositions
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

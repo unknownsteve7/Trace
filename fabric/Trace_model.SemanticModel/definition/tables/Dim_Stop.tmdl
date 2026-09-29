@@ -1,0 +1,57 @@
+table Dim_Stop
+	lineageTag: f4986012-4381-43ec-9da4-d10f203db882
+	sourceLineageTag: [dbo].[Dim_Stop]
+
+	column stop_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 476dabe7-3d40-447f-92e7-d8db1d089e08
+		sourceLineageTag: stop_id
+		summarizeBy: none
+		sourceColumn: stop_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column stop_name
+		dataType: string
+		sourceProviderType: varchar(255)
+		lineageTag: 0e8c3be0-88d1-461c-ba45-b9ceb5d24e12
+		sourceLineageTag: stop_name
+		summarizeBy: none
+		sourceColumn: stop_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column stop_lat
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 8446c9e5-79b9-4ebf-ae4c-b420e96918db
+		sourceLineageTag: stop_lat
+		summarizeBy: sum
+		sourceColumn: stop_lat
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column stop_lon
+		dataType: double
+		sourceProviderType: float
+		lineageTag: bb1ad955-f756-47da-86b8-936e940b1e14
+		sourceLineageTag: stop_lon
+		summarizeBy: sum
+		sourceColumn: stop_lon
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Dim_Stop = entity
+		mode: directLake
+		source
+			entityName: Dim_Stop
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

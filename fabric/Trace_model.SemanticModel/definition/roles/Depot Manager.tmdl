@@ -1,0 +1,13 @@
+role 'Depot Manager'
+	modelPermission: read
+
+	tablePermission Dim_Route =
+			```
+			-- Mock dynamic RLS filter: In production, this would look up the user's depot from a mapping table.
+			-- e.g. [DepotID] = LOOKUPVALUE(UserDepotMapping[DepotID], UserDepotMapping[Email], USERPRINCIPALNAME())
+			-- Here we are applying a static filter for demonstration purposes.
+			[route_short_name] = "502"
+			```
+
+	annotation PBI_Id = 3c9f3b5894174c379a953de3bd714bc3
+

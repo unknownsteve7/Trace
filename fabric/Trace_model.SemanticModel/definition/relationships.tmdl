@@ -1,0 +1,32 @@
+relationship 7cecbe15-c6fa-65ed-0323-1de7edb7b612
+	fromColumn: RouteScheduleSummary_Gold.route_id
+	toColumn: Dim_Route.route_id
+
+relationship 70df1acd-361d-257b-5488-202b918e1bed
+	fromColumn: VehicleActivity_Gold.route_id
+	toColumn: Dim_Route.route_id
+
+relationship 83282cb8-ca17-4f29-e5a9-9148f6ebe7c3
+	fromColumn: TopRoutes_Gold.route_id
+	toColumn: Dim_Route.route_id
+
+relationship 5639e406-7363-f0b3-34b7-32c8de5e83c6
+	fromColumn: Fact_VehiclePositions.route_id
+	toColumn: Dim_Route.route_id
+
+relationship 9c9da664-1414-877b-f4a2-e711426e3f46
+	fromColumn: Dim_Trip.route_id
+	toColumn: Dim_Route.route_id
+
+relationship e6bc7374-8877-8560-3c88-e516206b253c
+	fromColumn: WeatherVsActivity_Gold.date
+	toColumn: Dim_Date.date
+
+relationship 48be5367-6f05-8ee6-dc51-d3a879e36657
+	fromColumn: Fact_FuelPrices.date
+	toColumn: Dim_Date.date
+
+relationship f68e5545-12d6-af7d-34de-31ac4c43c90b
+	fromColumn: Fact_WeatherDaily.date
+	toColumn: Dim_Date.date
+

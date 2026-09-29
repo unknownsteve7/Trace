@@ -1,0 +1,152 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "a9518cf6a10c2a90ab30",
+  "position": {
+    "x": 680.57006798026157,
+    "y": 440.99244280340935,
+    "z": 7000,
+    "height": 197.17450567652438,
+    "width": 928.62831705717929,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "WeatherSummary_Gold"
+                        }
+                      },
+                      "Property": "avg_rain_mm"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(WeatherSummary_Gold.avg_rain_mm)",
+              "nativeQueryRef": "Sum of avg_rain_mm"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "WeatherSummary_Gold"
+                        }
+                      },
+                      "Property": "avg_temp_c"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(WeatherSummary_Gold.avg_temp_c)",
+              "nativeQueryRef": "Sum of avg_temp_c"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "WeatherSummary_Gold"
+                        }
+                      },
+                      "Property": "avg_wind_kmh"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(WeatherSummary_Gold.avg_wind_kmh)",
+              "nativeQueryRef": "Sum of avg_wind_kmh"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "WeatherSummary_Gold"
+                        }
+                      },
+                      "Property": "max_rain_mm"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(WeatherSummary_Gold.max_rain_mm)",
+              "nativeQueryRef": "Sum of max_rain_mm"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "WeatherSummary_Gold"
+                        }
+                      },
+                      "Property": "rainy_days"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(WeatherSummary_Gold.rainy_days)",
+              "nativeQueryRef": "Sum of rainy_days"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "WeatherSummary_Gold"
+                        }
+                      },
+                      "Property": "total_days"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(WeatherSummary_Gold.total_days)",
+              "nativeQueryRef": "Sum of total_days"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "WeatherSummary_Gold"
+                    }
+                  },
+                  "Property": "weather_label"
+                }
+              },
+              "queryRef": "WeatherSummary_Gold.weather_label",
+              "nativeQueryRef": "weather_label"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
