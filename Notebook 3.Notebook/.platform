@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
     "type": "Notebook",
-    "displayName": "Notebook 3",
-    "description": "New notebook"
+    "displayName": "NB03 — Weather Data Bronze",
+    "description": "Fetches historical daily weather data from Open-Meteo API and writes to Fact_WeatherDaily in OneLake"
   },
   "config": {
     "version": "2.0",

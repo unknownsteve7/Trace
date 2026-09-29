@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
     "type": "Notebook",
-    "displayName": "Notebook 2",
-    "description": "New notebook"
+    "displayName": "NB02 — Realtime Positions Bronze",
+    "description": "Polls the Delhi OTD GTFS-RT API for live vehicle positions and writes to bronze_vehicle_positions with derived speed calculation"
   },
   "config": {
     "version": "2.0",

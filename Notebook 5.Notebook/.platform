@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
     "type": "Notebook",
-    "displayName": "Notebook 5",
-    "description": "New notebook"
+    "displayName": "NB05 — Dimensions Silver",
+    "description": "Builds Dim_Route, Dim_Stop, Dim_Trip, and Dim_Date dimension tables in the Silver layer from GTFS bronze data"
   },
   "config": {
     "version": "2.0",
