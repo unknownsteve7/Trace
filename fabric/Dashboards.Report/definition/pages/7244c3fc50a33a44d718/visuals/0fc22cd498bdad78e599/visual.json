@@ -1,0 +1,54 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "0fc22cd498bdad78e599",
+  "position": {
+    "x": 812.0197384312778,
+    "y": 580.92273715449119,
+    "z": 7000,
+    "height": 108.12795472583595,
+    "width": 538.51961765416331,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_VehiclePositions"
+                    }
+                  },
+                  "Property": "speed"
+                }
+              },
+              "queryRef": "Fact_VehiclePositions.speed",
+              "nativeQueryRef": "speed",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Between'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

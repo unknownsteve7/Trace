@@ -1,0 +1,150 @@
+table Dim_Trip
+	lineageTag: 747d786e-6eb4-4c9d-9aef-969848884ab3
+	sourceLineageTag: [dbo].[Dim_Trip]
+
+	column trip_id
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: ab284c7e-3b25-4190-96e7-c39724735d2f
+		sourceLineageTag: trip_id
+		summarizeBy: none
+		sourceColumn: trip_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: e7f8d38d-0528-4ef8-bd1e-4aa3179762a2
+		sourceLineageTag: route_id
+		summarizeBy: none
+		sourceColumn: route_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column service_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 33bc9aa4-5c97-444f-89a5-9f8a55540d9e
+		sourceLineageTag: service_id
+		summarizeBy: none
+		sourceColumn: service_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column shape_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 832a5d32-0690-4b10-bc0d-2bb897456f6c
+		sourceLineageTag: shape_id
+		summarizeBy: none
+		sourceColumn: shape_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column monday
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b59fc7bf-a537-4a11-a374-f9ef59405ad0
+		sourceLineageTag: monday
+		summarizeBy: sum
+		sourceColumn: monday
+
+		annotation SummarizationSetBy = Automatic
+
+	column tuesday
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 20fe9691-e279-412b-99c9-87d1c6e52627
+		sourceLineageTag: tuesday
+		summarizeBy: sum
+		sourceColumn: tuesday
+
+		annotation SummarizationSetBy = Automatic
+
+	column wednesday
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 39f5f765-d652-41c4-b022-03715f6fc3b3
+		sourceLineageTag: wednesday
+		summarizeBy: sum
+		sourceColumn: wednesday
+
+		annotation SummarizationSetBy = Automatic
+
+	column thursday
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 8976135a-e7b7-497b-a038-03de7913a26a
+		sourceLineageTag: thursday
+		summarizeBy: sum
+		sourceColumn: thursday
+
+		annotation SummarizationSetBy = Automatic
+
+	column friday
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a9833582-69cf-4836-8c94-d5373a1612b7
+		sourceLineageTag: friday
+		summarizeBy: sum
+		sourceColumn: friday
+
+		annotation SummarizationSetBy = Automatic
+
+	column saturday
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a1026e55-c7a3-453c-af41-d6a092a6c3c1
+		sourceLineageTag: saturday
+		summarizeBy: sum
+		sourceColumn: saturday
+
+		annotation SummarizationSetBy = Automatic
+
+	column sunday
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 14268b36-4010-4884-88e5-83cb8b910a6c
+		sourceLineageTag: sunday
+		summarizeBy: sum
+		sourceColumn: sunday
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_date
+		dataType: string
+		sourceProviderType: varchar(20)
+		lineageTag: 69ff67d3-11d0-4cc1-bf79-5a6773ddfdb8
+		sourceLineageTag: start_date
+		summarizeBy: none
+		sourceColumn: start_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_date
+		dataType: string
+		sourceProviderType: varchar(20)
+		lineageTag: 23c08f85-e374-4a00-91f7-7a5488354ed4
+		sourceLineageTag: end_date
+		summarizeBy: none
+		sourceColumn: end_date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Trip = entity
+		mode: directLake
+		source
+			entityName: Dim_Trip
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

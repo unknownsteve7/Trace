@@ -1,0 +1,101 @@
+table RouteScheduleSummary_Gold
+	lineageTag: 20ff1acf-2f75-46bb-beb4-e75b783fc062
+	sourceLineageTag: [dbo].[RouteScheduleSummary_Gold]
+
+	column route_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 178d5562-5f34-4c8b-8026-7928226f8c9a
+		sourceLineageTag: route_id
+		summarizeBy: none
+		sourceColumn: route_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_name
+		dataType: string
+		sourceProviderType: varchar(255)
+		lineageTag: c190662f-752d-4054-8e9d-1a0c53692e52
+		sourceLineageTag: route_name
+		summarizeBy: none
+		sourceColumn: route_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_trips
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c0b213bd-cd64-49dd-9570-f662417ed32b
+		sourceLineageTag: total_trips
+		summarizeBy: sum
+		sourceColumn: total_trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_stop_events
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e40a35b1-c88c-49ce-b1fd-6940127a701e
+		sourceLineageTag: total_stop_events
+		summarizeBy: sum
+		sourceColumn: total_stop_events
+
+		annotation SummarizationSetBy = Automatic
+
+	column peak_hour_stops
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 90189562-6234-44d0-894c-3db09819b1a1
+		sourceLineageTag: peak_hour_stops
+		summarizeBy: sum
+		sourceColumn: peak_hour_stops
+
+		annotation SummarizationSetBy = Automatic
+
+	column offpeak_stops
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 36b6a58c-9d2d-4f8c-b21a-1351eb62af04
+		sourceLineageTag: offpeak_stops
+		summarizeBy: sum
+		sourceColumn: offpeak_stops
+
+		annotation SummarizationSetBy = Automatic
+
+	column peak_hour_pct
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(5, 1)
+		lineageTag: e76cb4cc-2cad-45c9-af73-ba49477550c1
+		sourceLineageTag: peak_hour_pct
+		summarizeBy: sum
+		sourceColumn: peak_hour_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column unique_stops_served
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 792d0c21-e717-442a-b241-fc677c45caef
+		sourceLineageTag: unique_stops_served
+		summarizeBy: sum
+		sourceColumn: unique_stops_served
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RouteScheduleSummary_Gold = entity
+		mode: directLake
+		source
+			entityName: RouteScheduleSummary_Gold
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

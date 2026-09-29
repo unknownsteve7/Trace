@@ -1,0 +1,13 @@
+CREATE VIEW dbo.WeatherSummary_Gold AS
+SELECT
+    weather_label,
+    COUNT(*)                        AS total_days,
+    ROUND(AVG(temp_avg_c), 1)       AS avg_temp_c,
+    ROUND(AVG(precipitation_mm), 2) AS avg_rain_mm,
+    ROUND(MAX(precipitation_mm), 2) AS max_rain_mm,
+    ROUND(AVG(windspeed_max_kmh),1) AS avg_wind_kmh,
+    SUM(is_rainy_day)               AS rainy_days
+FROM dbo.Fact_WeatherDaily
+GROUP BY weather_label;
+
+GO

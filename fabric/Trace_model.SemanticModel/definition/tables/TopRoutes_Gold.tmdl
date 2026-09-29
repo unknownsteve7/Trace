@@ -1,0 +1,77 @@
+table TopRoutes_Gold
+	lineageTag: 278021d4-1bd7-45a2-8c85-03dbd75704f5
+	sourceLineageTag: [dbo].[TopRoutes_Gold]
+
+	column route_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: dbe3343f-41b5-4739-94fe-33b9a01f316d
+		sourceLineageTag: route_id
+		summarizeBy: none
+		sourceColumn: route_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_name
+		dataType: string
+		sourceProviderType: varchar(255)
+		lineageTag: b24cd192-c8f3-4192-961b-9022b912cdda
+		sourceLineageTag: route_name
+		summarizeBy: none
+		sourceColumn: route_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column scheduled_trips
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 6833f75d-af62-4054-9f1c-8bdfa0a1a33d
+		sourceLineageTag: scheduled_trips
+		summarizeBy: sum
+		sourceColumn: scheduled_trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_stop_events
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 5cc79f9d-b095-40e9-a4f6-7d810f8b357f
+		sourceLineageTag: total_stop_events
+		summarizeBy: sum
+		sourceColumn: total_stop_events
+
+		annotation SummarizationSetBy = Automatic
+
+	column unique_stops
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 88ed337b-409b-4a45-ba8a-c5f583c10ccd
+		sourceLineageTag: unique_stops
+		summarizeBy: sum
+		sourceColumn: unique_stops
+
+		annotation SummarizationSetBy = Automatic
+
+	column peak_events
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 08426066-766a-494b-9972-b224da9c705a
+		sourceLineageTag: peak_events
+		summarizeBy: sum
+		sourceColumn: peak_events
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TopRoutes_Gold = entity
+		mode: directLake
+		source
+			entityName: TopRoutes_Gold
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

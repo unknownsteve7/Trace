@@ -1,0 +1,58 @@
+table Fact_FuelPrices
+	lineageTag: 7ee1c8a0-edba-4aec-a852-21519c857e3c
+	sourceLineageTag: [dbo].[Fact_FuelPrices]
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 0fa789b9-55a1-47d7-9ae8-6aedeefdf5c5
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column petrol_delhi_inr
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 58f9d21b-c473-4722-8f11-cc09f1bae2a2
+		sourceLineageTag: petrol_delhi_inr
+		summarizeBy: sum
+		sourceColumn: petrol_delhi_inr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column diesel_delhi_inr
+		dataType: double
+		sourceProviderType: float
+		lineageTag: e04d503f-a5b7-4020-b82f-0fda43ad1e2e
+		sourceLineageTag: diesel_delhi_inr
+		summarizeBy: sum
+		sourceColumn: diesel_delhi_inr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column source_note
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: cc8e7563-a5c6-44a0-9b26-8c3cdc52ba12
+		sourceLineageTag: source_note
+		summarizeBy: none
+		sourceColumn: source_note
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_FuelPrices = entity
+		mode: directLake
+		source
+			entityName: Fact_FuelPrices
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

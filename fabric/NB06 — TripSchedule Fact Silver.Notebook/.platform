@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "NB06 — TripSchedule Fact Silver",
+    "description": "Builds Fact_TripSchedule with peak-hour features and schedule adherence metrics from stop_times and calendar bronze data"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d6793686-a93a-914a-435d-eec16f1c2e62"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "e6a2a20cab75648b4356",
+  "position": {
+    "x": 300.44884296317855,
+    "y": 405.96361519429485,
+    "z": 6000,
+    "height": 405.96361519429485,
+    "width": 804.773686508514,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VehicleActivity_Gold"
+                    }
+                  },
+                  "Property": "route_name"
+                }
+              },
+              "queryRef": "VehicleActivity_Gold.route_name",
+              "nativeQueryRef": "route_name"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "VehicleActivity_Gold"
+                        }
+                      },
+                      "Property": "position_pings"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(VehicleActivity_Gold.position_pings)",
+              "nativeQueryRef": "Sum of position_pings"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "VehicleActivity_Gold"
+                        }
+                      },
+                      "Property": "unique_vehicles"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(VehicleActivity_Gold.unique_vehicles)",
+              "nativeQueryRef": "Sum of unique_vehicles"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "VehicleActivity_Gold"
+                        }
+                      },
+                      "Property": "avg_speed_kmh"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(VehicleActivity_Gold.avg_speed_kmh)",
+              "nativeQueryRef": "Average of avg_speed_kmh"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "VehicleActivity_Gold"
+                        }
+                      },
+                      "Property": "pct_stopped"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(VehicleActivity_Gold.pct_stopped)",
+              "nativeQueryRef": "Average of pct_stopped"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
