@@ -1,0 +1,4 @@
+role 'Fleet & Maintenance Manager'
+	modelPermission: read
+
+	annotation PBI_Id = 4d9f3b5894174c379a953de3bd714bc4

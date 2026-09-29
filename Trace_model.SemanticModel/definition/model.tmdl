@@ -27,3 +27,8 @@ ref table Fact_VehiclePositions
 ref table Fact_FuelPrices
 ref table Dim_Date
 
+ref role 'Head of Operations Analytics'
+ref role 'Route Planning Manager'
+ref role 'Depot Manager'
+ref role 'Fleet & Maintenance Manager'
+ref role 'Customer Experience Head'

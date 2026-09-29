@@ -224,10 +224,11 @@ trace/
 - [x] Star schema created in Fabric Warehouse
 - [x] SQL analysis views (6 views covering OTP, weather, activity)
 - [x] Semantic model (DirectQuery over Warehouse)
-- [ ] Power BI dashboards — Operations, Weather, Cost
-- [ ] Row-Level Security by stakeholder role
-- [ ] Data Factory pipeline — scheduled Notebook 2 (realtime ingestion)
-- [ ] QR complaint capture system (FastAPI)
+- [x] Power BI dashboards — Operations, Weather, Cost
+- [x] Row-Level Security by stakeholder role
+- [x] Data Factory pipeline — scheduled Notebook 2 (realtime ingestion)
+- [x] QR complaint capture system (FastAPI)
+- [x] MCTC → Fabric bridge — Ingestion notebook `NB8_Ingest_MCTC_Observations`
 - [ ] (Stretch) Delay prediction model
 
 ---
