@@ -16,11 +16,19 @@ __pycache__/
 # IDE / OS
 .idea/
 .vscode/
+.junie/
 .DS_Store
 Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Large binaries — use direct download instead
+mctc/cloudflared.exe
+
+# SQLite databases
+*.db
+mctc/observations.db
 
 # Local data dumps (keep structure; ignore bulky regenerable files if needed)
 # Uncomment if you stop tracking large GTFS dumps:
