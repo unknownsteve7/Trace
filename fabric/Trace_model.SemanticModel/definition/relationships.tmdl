@@ -30,3 +30,10 @@ relationship f68e5545-12d6-af7d-34de-31ac4c43c90b
 	fromColumn: Fact_WeatherDaily.date
 	toColumn: Dim_Date.date
 
+relationship c4c885bd-3f5d-4774-b32c-7bf36dfaeee9
+	fromColumn: Fact_TripSchedule.trip_id
+	toColumn: Dim_Trip.trip_id
+
+relationship fde720bd-b0c2-411b-b062-fe6a8a161825
+	fromColumn: Fact_TripSchedule.stop_id
+	toColumn: Dim_Stop.stop_id

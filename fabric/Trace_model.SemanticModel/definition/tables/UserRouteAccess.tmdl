@@ -1,0 +1,34 @@
+table UserRouteAccess
+	isHidden
+	lineageTag: 95b6ea02-560c-4371-a3c7-e7ac1278ae7a
+	sourceLineageTag: [dbo].[UserRouteAccess]
+
+	column user_email
+		dataType: string
+		sourceProviderType: varchar(256)
+		lineageTag: 9a5a8c8e-59e9-4e4f-ab0a-855da7123a50
+		sourceLineageTag: user_email
+		summarizeBy: none
+		sourceColumn: user_email
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 25695f69-1b8a-49ca-b4d8-614c56769bf1
+		sourceLineageTag: route_id
+		summarizeBy: none
+		sourceColumn: route_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition UserRouteAccess = entity
+		mode: directLake
+		source
+			entityName: UserRouteAccess
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

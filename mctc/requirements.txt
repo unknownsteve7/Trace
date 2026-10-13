@@ -6,3 +6,4 @@ python-dotenv
 qrcode[pil]
 pillow
 python-multipart
+pyngrok

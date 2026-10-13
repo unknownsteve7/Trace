@@ -22,32 +22,61 @@
 
 # CELL ********************
 
+import io
+import requests
 import pandas as pd
+from delta.tables import DeltaTable
 from pyspark.sql.functions import col, to_timestamp, current_timestamp
 
-# URL for the MCTC API CSV Export
-# Note: Update this to match your permanent ngrok domain or Render.com URL
-MCTC_API_URL = "https://hamstring-reassign-evidence.ngrok-free.dev/export/observations-csv"
+# MCTC export endpoint (static ngrok domain — see mctc/start_with_tunnel.py)
+MCTC_BASE_URL   = "https://hamstring-reassign-evidence.ngrok-free.dev"
+KEY_VAULT_URL   = "https://trace-kv.vault.azure.net/"   # <-- set to your vault
+ADMIN_USER      = "admin"
+ADMIN_PW_SECRET = "mctc-admin-password"
+LOOKBACK_DAYS   = 36500   # pull full history; MERGE below makes re-runs idempotent
 
-print(f"Fetching ground-level observations from: {MCTC_API_URL}")
+TABLE_NAME = "bronze_mctc_observations"
 
-try:
-    # 1. Fetch data directly via pandas
-    pdf = pd.read_csv(MCTC_API_URL)
-    print(f"Successfully retrieved {len(pdf)} records.")
-    
-    # 2. Convert to Spark DataFrame
-    df = spark.createDataFrame(pdf)
-    
-    # 3. Clean up data types (convert string timestamps to proper timestamp objects)
-    df = df.withColumn("timestamp", to_timestamp(col("timestamp"), "yyyy-MM-dd HH:mm:ss"))
-    df = df.withColumn("ingested_at", current_timestamp())
-    
-    # 4. Save to Bronze Layer in OneLake
-    table_name = "bronze_mctc_observations"
-    df.write.format("delta").mode("overwrite").option("overwriteSchema", "true").saveAsTable(table_name)
-    
-    print(f"Data successfully written to {table_name}")
+admin_pw = notebookutils.credentials.getSecret(KEY_VAULT_URL, ADMIN_PW_SECRET)
+url = f"{MCTC_BASE_URL}/export/observations-csv"
+print(f"Fetching ground-level observations from: {url}")
 
-except Exception as e:
-    print(f"Error fetching or saving MCTC observations: {str(e)}")
+# Errors propagate so a failed fetch fails the notebook run instead of
+# reporting success with no data.
+resp = requests.get(url, params={"days": LOOKBACK_DAYS},
+                    auth=(ADMIN_USER, admin_pw), timeout=60)
+resp.raise_for_status()
+
+# All columns as strings (empty -> ""), typed explicitly below
+pdf = pd.read_csv(io.StringIO(resp.text), dtype=str, keep_default_na=False)
+print(f"Retrieved {len(pdf)} records.")
+
+if pdf.empty:
+    print("No observations to ingest.")
+else:
+    df = (spark.createDataFrame(pdf)
+          .withColumn("id", col("id").cast("int"))
+          .withColumn("latitude", col("latitude").cast("double"))
+          .withColumn("longitude", col("longitude").cast("double"))
+          .withColumn("observed_at", to_timestamp(col("observed_at")))
+          .withColumn("created_at", to_timestamp(col("created_at")))
+          .withColumn("ingested_at", current_timestamp()))
+
+    if spark.catalog.tableExists(TABLE_NAME):
+        # Upsert on observation id — status changes (NEW -> REVIEWED) update in place
+        (DeltaTable.forName(spark, TABLE_NAME).alias("t")
+            .merge(df.alias("s"), "t.id = s.id")
+            .whenMatchedUpdateAll()
+            .whenNotMatchedInsertAll()
+            .execute())
+    else:
+        df.write.format("delta").saveAsTable(TABLE_NAME)
+
+    print(f"{TABLE_NAME} now has {spark.table(TABLE_NAME).count()} rows")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }

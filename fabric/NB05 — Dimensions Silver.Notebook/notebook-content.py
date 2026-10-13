@@ -56,7 +56,7 @@ from pyspark.sql.functions import (
 date_range = spark.sql("""
     SELECT explode(sequence(
         to_date('2024-01-01'),
-        to_date('2026-12-31'),
+        to_date('2027-12-31'),
         interval 1 day
     )) AS date
 """)
@@ -78,6 +78,7 @@ dim_date = date_range.select(
         "2024-01-26", "2024-08-15", "2024-10-02",  # Republic, Independence, Gandhi
         "2025-01-26", "2025-08-15", "2025-10-02",
         "2026-01-26", "2026-08-15", "2026-10-02",
+        "2027-01-26", "2027-08-15", "2027-10-02",
     ]).cast("int").alias("is_public_holiday")
 )
 

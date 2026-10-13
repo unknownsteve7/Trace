@@ -1,0 +1,108 @@
+table Fact_TripSchedule
+	lineageTag: 94ffe9e8-08eb-4f09-89ff-50a9c93d139b
+	sourceLineageTag: [dbo].[Fact_TripSchedule]
+
+	column trip_id
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: 43980462-59ec-418a-88a6-18ecea9f9fda
+		sourceLineageTag: trip_id
+		summarizeBy: none
+		sourceColumn: trip_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column stop_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: b8f98346-52b0-473f-91f4-fd6c1b391134
+		sourceLineageTag: stop_id
+		summarizeBy: none
+		sourceColumn: stop_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column stop_sequence
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: df5e5cc1-1802-4cb4-8828-5491dc22f75e
+		sourceLineageTag: stop_sequence
+		summarizeBy: none
+		sourceColumn: stop_sequence
+
+		annotation SummarizationSetBy = Automatic
+
+	column arrival_time
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: ef79d7e4-8ef5-46f9-a76e-02c4aa8bd782
+		sourceLineageTag: arrival_time
+		summarizeBy: none
+		sourceColumn: arrival_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column departure_time
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 4d7be151-3980-4388-be53-33428460a36a
+		sourceLineageTag: departure_time
+		summarizeBy: none
+		sourceColumn: departure_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column arrival_secs
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3da3d979-aae3-45e3-804d-9d098d0b0152
+		sourceLineageTag: arrival_secs
+		summarizeBy: none
+		sourceColumn: arrival_secs
+
+		annotation SummarizationSetBy = Automatic
+
+	column departure_secs
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 4fc642f2-cccb-4082-8367-96e6061f9a73
+		sourceLineageTag: departure_secs
+		summarizeBy: none
+		sourceColumn: departure_secs
+
+		annotation SummarizationSetBy = Automatic
+
+	column departure_hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 4501c6f3-8588-42ba-be14-e88abe3ced1a
+		sourceLineageTag: departure_hour
+		summarizeBy: none
+		sourceColumn: departure_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_peak_hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 66437856-215c-48c2-a749-8acb511976ce
+		sourceLineageTag: is_peak_hour
+		summarizeBy: sum
+		sourceColumn: is_peak_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_TripSchedule = entity
+		mode: directLake
+		source
+			entityName: Fact_TripSchedule
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

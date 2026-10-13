@@ -61,18 +61,15 @@ The project is built on **real, verifiable, government-published data sources** 
 │  │  Dim_Trip               Fact_WeatherDaily                │    │
 │  │  Dim_Date               Fact_FuelPrices                  │    │
 │  │                                                          │    │
-│  │  ANALYSIS VIEWS                                          │    │
-│  │  vw_route_schedule_summary                               │    │
-│  │  vw_hourly_trip_distribution                             │    │
-│  │  vw_vehicle_activity                                     │    │
-│  │  vw_weather_summary                                      │    │
-│  │  vw_weather_vs_activity                                  │    │
-│  │  vw_top_routes                                           │    │
+│  │  GOLD VIEWS                                              │    │
+│  │  RouteScheduleSummary_Gold   HourlyTripDistribution      │    │
+│  │  VehicleActivity_Gold        TopRoutes_Gold              │    │
+│  │  WeatherSummary_Gold         WeatherVsActivity_Gold      │    │
 │  └──────────────────────┬──────────────────────────────────┘    │
 │                         │                                        │
 │                         ▼                                        │
 │  ┌─────────────────────────────────────────────────────────┐    │
-│  │     Trace_Model (Semantic Model — DirectQuery)           │    │
+│  │     Trace_Model (Semantic Model — Direct Lake)           │    │
 │  └──────────────────────┬──────────────────────────────────┘    │
 │                         │                                        │
 │                         ▼                                        │
@@ -131,7 +128,7 @@ Dim_Date  ──┤    Fact_VehiclePositions
 | Ingestion & Transform | PySpark (Fabric Notebooks) |
 | Storage | OneLake — Delta tables (medallion) |
 | Warehouse | Fabric Warehouse (T-SQL) |
-| Semantic Layer | Fabric Semantic Model (DirectQuery) |
+| Semantic Layer | Fabric Semantic Model (Direct Lake) |
 | Dashboards | Power BI (in Fabric) |
 | Realtime decoding | `gtfs-realtime-bindings` (Protocol Buffers) |
 | Version Control | Git — synced Azure Repos ↔ GitHub |
@@ -149,13 +146,14 @@ TRACE/
 │   ├── NB04 - Fuel Prices Bronze.Notebook/
 │   ├── NB05 - Dimensions Silver.Notebook/
 │   ├── NB06 - TripSchedule Fact Silver.Notebook/
-│   ├── NB07 - Gold Views & Warehouse Load.Notebook/
+│   ├── NB07 - Weather Silver.Notebook/
 │   ├── NB8_Ingest_MCTC_Observations.Notebook/
+│   ├── NB09 - Data Quality Checks.Notebook/
 │   ├── Dashboards.Report/           # Power BI Dashboards
 │   ├── Pipeline_Realtime_Ingestion.DataPipeline/
 │   ├── trace_lakehouse.Lakehouse/   # Bronze & Silver Delta tables
 │   ├── trace_warehouse.Warehouse/   # Gold SQL views and Star Schema
-│   └── Trace_model.SemanticModel/   # DirectQuery model & RLS
+│   └── Trace_model.SemanticModel/   # Direct Lake model & RLS
 ├── mctc/                            # Ground-level observation system (FastAPI)
 ├── docs/                            # Architecture and bug trackers
 ├── requirements.txt                 # Python dependencies
@@ -173,7 +171,7 @@ TRACE/
 | Delta Tables | All lakehouse tables use Delta format (ACID, versioned) |
 | Cross-database Queries | Warehouse pulls from Lakehouse via `[trace_lakehouse].[dbo].[table]` |
 | Fabric Notebooks | PySpark for all ETL — extract, transform, load |
-| Semantic Model | DirectQuery model over Warehouse views |
+| Semantic Model | Direct Lake model over Warehouse tables & views |
 | Git Integration | Azure DevOps Git → Fabric workspace sync |
 
 ---
@@ -184,9 +182,12 @@ TRACE/
 1. Connect your Fabric workspace to this Git repository (Azure DevOps or GitHub)
 2. Set the **Git folder** to `/fabric` in workspace settings.
 3. Sync — all notebooks, warehouse, lakehouse, and semantic model will import automatically
-4. Upload GTFS static files to `trace_lakehouse/Files/` (download from Delhi OTD)
-5. Run notebooks in order: **NB01 → NB02 → NB03 → NB04 → NB05 → NB06 → NB07**
-6. Open `Trace_Model` semantic model → build Power BI reports
+4. Create an Azure Key Vault with secrets `otd-api-key` and `mctc-admin-password`, grant your identity **Get** on secrets, and set `KEY_VAULT_URL` at the top of NB02 and NB08
+5. Upload GTFS static files to `trace_lakehouse/Files/` (download from Delhi OTD)
+6. Run notebooks in order: **NB01 → NB02 → NB03 → NB04 → NB05 → NB06 → NB07 → NB09** (NB09 fails the run if data-quality checks fail)
+7. In `trace_warehouse`, run `EXEC dbo.usp_load_warehouse;` and, once, `EXEC dbo.usp_load_vehicle_positions @full_reload = 1;`
+8. Enable `Pipeline_Realtime_Ingestion`: every 10 min it runs NB02, then loads new positions into the warehouse
+9. For Depot Manager RLS, insert rows into `dbo.UserRouteAccess (user_email, route_id)`
 
 ---
 
@@ -196,7 +197,7 @@ TRACE/
 |---|---|---|
 | Head of Operations Analytics | All dashboards | Unrestricted |
 | Route Planning Manager | Operations — Service Pattern, Top Routes | All routes |
-| Depot Manager | Operations — Vehicle Activity | Own depot's routes only |
+| Depot Manager | Operations — Vehicle Activity | Routes mapped to the user in `UserRouteAccess` |
 | Fleet & Maintenance Manager | Vehicle Activity, speed/stoppage metrics | All vehicles |
 | Customer Experience Head | Weather Impact, Complaints (planned) | All routes |
 
@@ -223,11 +224,12 @@ TRACE/
 - [x] Dimension tables built → Silver layer
 - [x] Fact_TripSchedule with peak-hour features → Silver layer
 - [x] Star schema created in Fabric Warehouse
-- [x] SQL analysis views (6 views covering OTP, weather, activity)
-- [x] Semantic model (DirectQuery over Warehouse)
+- [x] Gold SQL views (6 views covering OTP, weather, activity)
+- [x] Semantic model (Direct Lake over Warehouse)
 - [x] Power BI dashboards — Operations, Weather, Cost
 - [x] Row-Level Security by stakeholder role
-- [x] Data Factory pipeline — scheduled Notebook 2 (realtime ingestion)
+- [x] Data Factory pipeline — NB02 + incremental warehouse load every 10 min
+- [x] Data-quality checks (NB09)
 - [x] QR complaint capture system (FastAPI)
 - [x] MCTC → Fabric bridge — Ingestion notebook `NB8_Ingest_MCTC_Observations`
 - [ ] (Stretch) Delay prediction model

@@ -22,6 +22,8 @@ Then open:
 
 import csv
 import io
+import os
+import secrets
 from datetime import datetime, timedelta
 from typing import Optional, List
 
@@ -29,6 +31,8 @@ from typing import Optional, List
 from fastapi import FastAPI, Depends, HTTPException, Query, Request, status
 # pyrefly: ignore [missing-import]
 from fastapi.responses import HTMLResponse, Response, StreamingResponse
+# pyrefly: ignore [missing-import]
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 # pyrefly: ignore [missing-import]
 from sqlalchemy.orm import Session
 # pyrefly: ignore [missing-import]
@@ -50,6 +54,36 @@ app = FastAPI(
     ),
     version="0.2.0",
 )
+
+
+# =======================================================================
+# Admin Authentication (HTTP Basic)
+# =======================================================================
+# Admin, analytics, export and QR-management endpoints require the
+# credentials in ADMIN_USERNAME / ADMIN_PASSWORD (.env). Browsers prompt
+# once and then send them automatically, so the admin dashboard's
+# same-origin fetch() calls keep working. Public endpoints (landing page,
+# /observe/{token}, POST /observations) stay open.
+
+security = HTTPBasic()
+ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
+
+
+def require_admin(credentials: HTTPBasicCredentials = Depends(security)):
+    if not ADMIN_PASSWORD:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Admin access is disabled: set ADMIN_PASSWORD in .env",
+        )
+    username_ok = secrets.compare_digest(credentials.username.encode(), ADMIN_USERNAME.encode())
+    password_ok = secrets.compare_digest(credentials.password.encode(), ADMIN_PASSWORD.encode())
+    if not (username_ok and password_ok):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid admin credentials",
+            headers={"WWW-Authenticate": "Basic"},
+        )
 
 
 # =======================================================================
@@ -154,6 +188,7 @@ def landing():
     response_model=schemas.QRCodeOut,
     status_code=status.HTTP_201_CREATED,
     tags=["QR Codes"],
+    dependencies=[Depends(require_admin)],
 )
 def create_qr_code(qr: schemas.QRCodeCreate, db: Session = Depends(get_db)):
     """
@@ -168,7 +203,7 @@ def create_qr_code(qr: schemas.QRCodeCreate, db: Session = Depends(get_db)):
     return crud.create_qr_code(db, qr)
 
 
-@app.get("/qr-codes", response_model=List[schemas.QRCodeOut], tags=["QR Codes"])
+@app.get("/qr-codes", response_model=List[schemas.QRCodeOut], tags=["QR Codes"], dependencies=[Depends(require_admin)])
 def list_qr_codes(db: Session = Depends(get_db)):
     """List all registered QR codes."""
     return db.query(models.QRCode).order_by(models.QRCode.created_at.desc()).all()
@@ -495,6 +530,7 @@ def submit_observation(obs: schemas.ObservationCreate, db: Session = Depends(get
     "/admin/observations",
     response_model=List[schemas.ObservationOut],
     tags=["Admin"],
+    dependencies=[Depends(require_admin)],
 )
 def list_observations(
     problem_type: Optional[models.ProblemType] = Query(None),
@@ -521,7 +557,7 @@ def list_observations(
     )
 
 
-@app.get("/admin/observations/{observation_id}", response_model=schemas.ObservationOut, tags=["Admin"])
+@app.get("/admin/observations/{observation_id}", response_model=schemas.ObservationOut, tags=["Admin"], dependencies=[Depends(require_admin)])
 def get_observation(observation_id: int, db: Session = Depends(get_db)):
     db_obs = crud.get_observation(db, observation_id)
     if db_obs is None:
@@ -529,7 +565,7 @@ def get_observation(observation_id: int, db: Session = Depends(get_db)):
     return db_obs
 
 
-@app.patch("/admin/observations/{observation_id}/status", response_model=schemas.ObservationOut, tags=["Admin"])
+@app.patch("/admin/observations/{observation_id}/status", response_model=schemas.ObservationOut, tags=["Admin"], dependencies=[Depends(require_admin)])
 def update_observation_status(
     observation_id: int,
     update: schemas.ObservationStatusUpdate,
@@ -541,7 +577,7 @@ def update_observation_status(
     return db_obs
 
 
-@app.get("/admin/summary", response_model=schemas.AdminSummary, tags=["Admin"])
+@app.get("/admin/summary", response_model=schemas.AdminSummary, tags=["Admin"], dependencies=[Depends(require_admin)])
 def admin_summary(db: Session = Depends(get_db)):
     return crud.get_summary(db)
 
@@ -550,7 +586,7 @@ def admin_summary(db: Session = Depends(get_db)):
 # Analytics Endpoints (for Power BI / TRACE dashboards)
 # =======================================================================
 
-@app.get("/analytics/by-route", tags=["Analytics"])
+@app.get("/analytics/by-route", tags=["Analytics"], dependencies=[Depends(require_admin)])
 def observations_by_route(
     days: int = Query(30, description="Look-back window in days"),
     db: Session = Depends(get_db),
@@ -571,7 +607,7 @@ def observations_by_route(
     ]
 
 
-@app.get("/analytics/summary-by-type", tags=["Analytics"])
+@app.get("/analytics/summary-by-type", tags=["Analytics"], dependencies=[Depends(require_admin)])
 def summary_by_problem_type(
     days: int = Query(30),
     db: Session = Depends(get_db),
@@ -588,7 +624,7 @@ def summary_by_problem_type(
 # Admin Dashboard Frontend
 # =======================================================================
 
-@app.get("/admin-dashboard", response_class=HTMLResponse, tags=["Admin"], include_in_schema=False)
+@app.get("/admin-dashboard", response_class=HTMLResponse, tags=["Admin"], include_in_schema=False, dependencies=[Depends(require_admin)])
 def admin_dashboard():
     """
     Full admin dashboard UI — live data from the API.
@@ -1273,7 +1309,7 @@ loadDashboard();
 # Export (for Fabric / Data Factory ingestion)
 # =======================================================================
 
-@app.get("/export/observations-csv", tags=["Export"])
+@app.get("/export/observations-csv", tags=["Export"], dependencies=[Depends(require_admin)])
 def export_observations_csv(
     days: int = Query(7, description="Export last N days"),
     db: Session = Depends(get_db),
