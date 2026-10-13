@@ -1,14 +1,18 @@
+import os
 import subprocess
 import sys
 import time
 import threading
 
 # pyrefly: ignore [missing-import]
+from dotenv import load_dotenv
+# pyrefly: ignore [missing-import]
 from pyngrok import ngrok
-# ─────────────────────────────────────────────
-# PASTE YOUR NGROK AUTH TOKEN HERE
-NGROK_AUTH_TOKEN = "3JcgLh3zE34FczdWmsyh6XRXIl4_7DzLd2RjfQCiSMMuPwuLk"
-# ─────────────────────────────────────────────
+
+# Secrets live in .env (git-ignored) -- see .env.example
+load_dotenv()
+NGROK_AUTH_TOKEN = os.getenv("NGROK_AUTH_TOKEN")
+NGROK_DOMAIN = os.getenv("NGROK_DOMAIN", "hamstring-reassign-evidence.ngrok-free.dev")
 
 
 def start_uvicorn():
@@ -21,6 +25,8 @@ def start_uvicorn():
 
 
 if __name__ == "__main__":
+    if not NGROK_AUTH_TOKEN:
+        sys.exit("NGROK_AUTH_TOKEN is not set. Add it to mctc/.env (see .env.example).")
     ngrok.set_auth_token(NGROK_AUTH_TOKEN)
 
     t = threading.Thread(target=start_uvicorn, daemon=True)
@@ -28,7 +34,7 @@ if __name__ == "__main__":
     time.sleep(2)
 
     print("\nStarting ngrok tunnel...")
-    tunnel = ngrok.connect(8000,domain='hamstring-reassign-evidence.ngrok-free.dev', bind_tls=True)
+    tunnel = ngrok.connect(8000, domain=NGROK_DOMAIN, bind_tls=True)
     public_url = tunnel.public_url
 
     print("\n" + "=" * 60)

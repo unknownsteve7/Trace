@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "NB09 — Data Quality Checks",
+    "description": "Asserts key uniqueness, referential integrity, value ranges and freshness on Silver tables; fails the run on errors"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "41fd3d6b-01ee-43e9-a001-6bc6c0384117"
+  }
+}

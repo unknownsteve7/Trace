@@ -444,10 +444,23 @@ check (e.g. `DEVICE-A`, `DEVICE-B`, `DEVICE-C`...).
 
 ---
 
-## 13. Explicitly out of scope for this prototype
+## 13. Admin authentication
 
-- Authentication/authorization on admin endpoints (clearly labeled
-  "prototype — no auth" in the code and Swagger tags).
+Admin, analytics, export, and QR-management endpoints (`/admin/*`,
+`/admin-dashboard`, `/analytics/*`, `/export/*`, `POST /qr-codes`,
+`GET /qr-codes`) require HTTP Basic auth with `ADMIN_USERNAME` /
+`ADMIN_PASSWORD` from `.env` (copy `.env.example`). If `ADMIN_PASSWORD`
+is unset these endpoints return 503. The browser prompts once; the
+dashboard's own requests then reuse the credentials. Public endpoints
+(landing page, `/observe/{token}`, `POST /observations`) stay open.
+
+In Swagger (`/docs`), click **Authorize** and enter the credentials
+before trying admin endpoints.
+
+## 14. Explicitly out of scope for this prototype
+
+- Per-user accounts / roles on admin endpoints (a single shared admin
+  credential is used).
 - A rendered HTML/QR-scanning frontend (endpoints return JSON only;
   a frontend can be built against this API later).
 - Actual QR image generation (only the token/URL is handled here).
