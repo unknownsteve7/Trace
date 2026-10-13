@@ -9,13 +9,47 @@
         },
         "policy": {
           "timeout": "0.12:00:00",
-          "retry": 0,
+          "retry": 1,
           "retryIntervalInSeconds": 30,
           "secureInput": false,
           "secureOutput": false
         },
         "name": "Realtime_Ingestion",
         "dependsOn": []
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[usp_load_vehicle_positions]"
+        },
+        "linkedService": {
+          "name": "trace_warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "G6A7EV7IQYLEXOGAARIIPDRJWA-QGOB5VGTYEDEHLWBZI5FFA3ZLM.datawarehouse.fabric.microsoft.com",
+              "artifactId": "d64a4574-a27a-4337-901e-59b78c958562",
+              "workspaceId": "d41e9c81-c1d3-4306-aec1-ca3a5283795b"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.00:30:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Load_Warehouse_VehiclePositions",
+        "dependsOn": [
+          {
+            "activity": "Realtime_Ingestion",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       }
     ]
   }

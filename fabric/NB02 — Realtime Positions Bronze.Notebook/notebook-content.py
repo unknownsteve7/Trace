@@ -26,16 +26,40 @@
 
 # CELL ********************
 
+# ── Config ──────────────────────────────────────────────────────────
+# The OTD API key is read from Azure Key Vault, never from source.
+# One-time setup: create a Key Vault, add a secret named "otd-api-key",
+# and grant the workspace identity / pipeline owner "Get" on secrets.
+KEY_VAULT_URL   = "https://trace-kv.vault.azure.net/"   # <-- set to your vault
+OTD_SECRET_NAME = "otd-api-key"
+
+# GPS sanity limits for derived speed (see docs/bugs_and_known_issues.md BUG-001)
+MAX_BUS_SPEED_KMH = 120.0
+# Delhi NCR bounding box — pings outside it are GPS glitches
+LAT_MIN, LAT_MAX = 28.0, 29.2
+LON_MIN, LON_MAX = 76.5, 77.8
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# ── Bronze: append raw positions (append-only, never rewritten) ─────
 import requests
 from datetime import datetime, timezone, timedelta
 from google.transit import gtfs_realtime_pb2
 from pyspark.sql import Row
 
-API_KEY = "kV0HS8CSWr6NmORI1XIPRqXm62fujtio"  # move to Fabric Environment secret
+API_KEY = notebookutils.credentials.getSecret(KEY_VAULT_URL, OTD_SECRET_NAME)
 IST = timezone(timedelta(hours=5, minutes=30))
 
 url = "https://otd.delhi.gov.in/api/realtime/VehiclePositions.pb"
 response = requests.get(url, params={"key": API_KEY}, timeout=30)
+response.raise_for_status()
 
 feed = gtfs_realtime_pb2.FeedMessage()
 feed.ParseFromString(response.content)
@@ -57,10 +81,12 @@ for entity in feed.entity:
             ingested_at=str(datetime.now(IST))
         ))
 
+if not rows:
+    raise RuntimeError("OTD feed returned no vehicle positions — check API key / feed status")
+
 df = spark.createDataFrame(rows)
 df.write.format("delta").mode("append").saveAsTable("bronze_vehicle_positions")
 print(f"Appended {len(rows)} vehicle positions")
-
 
 # METADATA ********************
 
@@ -71,11 +97,14 @@ print(f"Appended {len(rows)} vehicle positions")
 
 # CELL ********************
 
-# ── Compute derived speed from position delta ──────────────────────
+# ── Silver: derived speed, computed incrementally ───────────────────
+# Only this run's Bronze rows are processed. Each vehicle's latest
+# Silver ping is unioned in so the lag() window has a predecessor;
+# those context rows are dropped before appending.
 from pyspark.sql import Window
 from pyspark.sql.functions import (
-    col, lag, unix_timestamp, when,
-    round as spark_round, regexp_replace
+    col, lag, lit, when, to_timestamp, row_number,
+    max as spark_max, round as spark_round
 )
 from pyspark.sql.functions import udf
 from pyspark.sql.types import DoubleType
@@ -94,48 +123,74 @@ def haversine_km(lat1, lon1, lat2, lon2):
          math.sin(dlon/2)**2)
     return R * 2 * math.asin(math.sqrt(a))
 
-positions = spark.table("bronze_vehicle_positions")
+SILVER_TABLE = "silver_vehicle_positions"
+silver_exists = spark.catalog.tableExists(SILVER_TABLE)
 
-# ── FIX: strip +05:30 timezone offset before unix_timestamp() ──────
-positions = positions.withColumn(
-    "ts_clean",
-    regexp_replace(col("timestamp"), r"\+\d{2}:\d{2}$", "")
-)
+bronze_cols = ["entity_id", "vehicle_id", "trip_id", "route_id", "latitude",
+               "longitude", "speed", "timestamp", "status", "ingested_at"]
 
-w = Window.partitionBy("vehicle_id").orderBy("ts_clean")
+bronze = spark.table("bronze_vehicle_positions").select(*bronze_cols)
+if silver_exists:
+    # First run after deploy backfills all Bronze; afterwards only new rows
+    watermark = (spark.table(SILVER_TABLE)
+                 .agg(spark_max(to_timestamp(col("ingested_at")))).first()[0])
+    new_rows = (bronze.filter(to_timestamp(col("ingested_at")) > lit(watermark))
+                if watermark else bronze)
+else:
+    new_rows = bronze
 
-positions_with_speed = positions \
-    .withColumn("prev_lat",  lag("latitude").over(w)) \
-    .withColumn("prev_lon",  lag("longitude").over(w)) \
-    .withColumn("prev_ts",   lag("ts_clean").over(w)) \
+# BUG-001: drop (0,0) fallbacks and pings outside Delhi NCR
+new_rows = new_rows.filter(
+    col("latitude").between(LAT_MIN, LAT_MAX) &
+    col("longitude").between(LON_MIN, LON_MAX)
+).dropDuplicates(["vehicle_id", "timestamp"]).withColumn("_is_new", lit(True))
+
+if silver_exists:
+    last_w = Window.partitionBy("vehicle_id").orderBy(to_timestamp(col("timestamp")).desc())
+    context = (spark.table(SILVER_TABLE).select(*bronze_cols)
+               .withColumn("_rn", row_number().over(last_w))
+               .filter(col("_rn") == 1).drop("_rn")
+               .withColumn("_is_new", lit(False)))
+    work = new_rows.unionByName(context)
+else:
+    work = new_rows
+
+# BUG-002: parse the full ISO string including +05:30, so the instant is
+# exact regardless of the Spark session time zone. The original IST
+# string column is kept for the warehouse (hour-of-day = local time).
+work = work.withColumn("event_ts", to_timestamp(col("timestamp")))
+
+w = Window.partitionBy("vehicle_id").orderBy("event_ts")
+positions_with_speed = (work
+    .withColumn("prev_lat", lag("latitude").over(w))
+    .withColumn("prev_lon", lag("longitude").over(w))
+    .withColumn("prev_ts",  lag("event_ts").over(w))
     .withColumn("dist_km", haversine_km(
         col("prev_lat"), col("prev_lon"),
         col("latitude"),  col("longitude")
-    )) \
+    ))
     .withColumn("time_diff_hrs",
-        (unix_timestamp("ts_clean") - unix_timestamp("prev_ts")) / 3600.0
-    ) \
+        (col("event_ts").cast("long") - col("prev_ts").cast("long")) / 3600.0
+    )
+    .withColumn("raw_speed_kmh",
+        when((col("time_diff_hrs") > 0) & col("dist_km").isNotNull(),
+             col("dist_km") / col("time_diff_hrs"))
+    )
     .withColumn("derived_speed_kmh",
-        when(
-            (col("time_diff_hrs") > 0) & (col("dist_km").isNotNull()),
-            spark_round(col("dist_km") / col("time_diff_hrs"), 2)
-        ).otherwise(0.0)
-    ) \
-    .drop("prev_lat", "prev_lon", "prev_ts", "dist_km", "time_diff_hrs", "ts_clean")
+        # NULL (unknown) rather than 0 for first pings and GPS jumps
+        when(col("raw_speed_kmh") <= MAX_BUS_SPEED_KMH,
+             spark_round(col("raw_speed_kmh"), 2))
+    )
+    .filter(col("_is_new"))
+)
 
-positions_with_speed.write.format("delta") \
-    .mode("overwrite") \
-    .option("overwriteSchema", "true") \
-    .saveAsTable("bronze_vehicle_positions")
+glitches = positions_with_speed.filter(col("raw_speed_kmh") > MAX_BUS_SPEED_KMH).count()
 
-print("Derived speeds computed")
+(positions_with_speed
+    .select(*bronze_cols, "derived_speed_kmh")
+    .write.format("delta").mode("append").saveAsTable(SILVER_TABLE))
 
-# Show sample of moving vehicles
-positions_with_speed.select("vehicle_id", "timestamp", "derived_speed_kmh") \
-    .filter(col("derived_speed_kmh") > 0) \
-    .orderBy(col("derived_speed_kmh").desc()) \
-    .show(10)
-
+print(f"Silver: appended {new_rows.count()} rows, nulled {glitches} speed glitches > {MAX_BUS_SPEED_KMH} km/h")
 
 # METADATA ********************
 

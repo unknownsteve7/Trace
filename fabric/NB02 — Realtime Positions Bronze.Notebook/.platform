@@ -3,7 +3,7 @@
   "metadata": {
     "type": "Notebook",
     "displayName": "NB02 — Realtime Positions Bronze",
-    "description": "Polls the Delhi OTD GTFS-RT API for live vehicle positions and writes to bronze_vehicle_positions with derived speed calculation"
+    "description": "Polls the Delhi OTD GTFS-RT API (key from Key Vault), appends raw pings to bronze_vehicle_positions, and incrementally builds silver_vehicle_positions with glitch-filtered derived speed"
   },
   "config": {
     "version": "2.0",
